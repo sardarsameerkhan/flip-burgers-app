@@ -402,46 +402,30 @@
 
 <script>
         function trackLiveOrder() {
-            // Fetch order details from localStorage
             const activeOrder = JSON.parse(localStorage.getItem('active_flip_order'));
 
-            // Fallback UI state if someone navigates here directly without checking out
             if (!activeOrder) {
                 document.getElementById('lblOrderId').innerText = "NO ACTIVE ORDER";
                 document.getElementById('lblAddress').innerText = "No delivery pending.";
                 document.getElementById('lblCustomer').innerText = "Please place an order from the cart.";
                 document.getElementById('pipelineProgressLine').style.height = '0%';
                 
-                // Dim all steps
                 for (let i = 1; i <= 4; i++) {
                     document.getElementById('step' + i).classList.remove('active', 'completed');
                 }
                 return;
             }
 
-            // 1. Map actual captured customer fields into left display panel
+            // 1. Map captured customer fields
             document.getElementById('lblOrderId').innerText = activeOrder.orderId;
             document.getElementById('lblAddress').innerText = activeOrder.customerAddress;
             document.getElementById('lblCustomer').innerText = `${activeOrder.customerName} (${activeOrder.customerPhone})`;
 
-            // 2. Compute status dynamically based on elapsed time
-            const currentTime = new Date().getTime();
-            const timeElapsedInSeconds = Math.floor((currentTime - activeOrder.orderTime) / 1000);
-            
-            let currentStatus = 1; // 1 = Confirmed, 2 = Kitchen, 3 = Rider, 4 = Arrived
-            
-            // Time logic triggers (Adjust these numbers to speed up or slow down testing)
-            if (timeElapsedInSeconds >= 60) {  // After 1 minute
-                currentStatus = 2;
-            }
-            if (timeElapsedInSeconds >= 180) { // After 3 minutes
-                currentStatus = 3;
-            }
-            if (timeElapsedInSeconds >= 300) { // After 5 minutes
-                currentStatus = 4;
-            }
+            // 2. Read status codes straight out of Admin operations values
+            // Default fallback if order just landed from checkout
+            let currentStatus = activeOrder.statusId || 1; 
 
-            // 3. Render tracking pipeline graphical nodes
+            // 3. Render tracking pipeline graphical nodes matching current status
             const progressBar = document.getElementById('pipelineProgressLine');
             
             for (let i = 1; i <= 4; i++) {
@@ -462,16 +446,15 @@
                 }
             }
 
-            // Smooth linear progress bar scale updates
+            // Match structural vertical line filling increments
             let progressHeights = { 1: 0, 2: 33.33, 3: 66.66, 4: 100 };
             progressBar.style.height = progressHeights[currentStatus] + '%';
         }
 
-        // Run checking calculation immediately on page load
         window.onload = function() {
             trackLiveOrder();
-            // Keep refreshing calculation checking status variables every 3 seconds live
-            setInterval(trackLiveOrder, 3000);
+            // Automatically poll storage every 2 seconds for admin changes
+            setInterval(trackLiveOrder, 2000);
         };
     </script>
 </body>

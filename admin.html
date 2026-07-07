@@ -3,245 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLIP BURGER | Admin Terminal</title>
+    <title>Flip Burger | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Noir Premium Design Token Architecture */
         :root {
-            --bg-color: #000000;
-            --surface-color: #0c0c0e;
-            --surface-card: #121214;
-            --text-main: #ffffff;
-            --text-muted: #777777;
-            --border-color: #1e1e22;
+            --bg-cream: #FDF2DC;       
+            --brand-brown: #541E06;     
+            --accent-yellow: #FFC72C;   
+            --font-bubble: 'Fredoka', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0B0A0A; /* Dark sleek professional background */
+            color: #FFFFFF;
+            font-family: var(--font-sans);
+            padding: 40px;
         }
 
-        .fade-in {
-            animation: fadeInPage 0.6s ease-out forwards;
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Administration Header Module */
-        nav {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 50px;
-            border-bottom: 1px solid var(--border-color);
-            background-color: var(--surface-color);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        .logo { font-size: 16px; font-weight: 900; letter-spacing: 3px; color: var(--text-main); }
-        
-        .refresh-trigger {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--text-main);
-            padding: 10px 22px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        .refresh-trigger:hover {
-            background-color: var(--text-main);
-            color: var(--bg-color);
-        }
-
-        /* Workspace Grid Wrapper */
-        .workspace-panel {
-            max-width: 1300px;
-            margin: 40px auto;
-            padding: 0 40px;
-        }
-
-        .section-headline {
-            font-size: 14px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 25px;
+        h1 {
+            font-family: var(--font-bubble);
+            font-size: 32px;
+            color: var(--accent-yellow);
             text-transform: uppercase;
         }
 
-        .matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 25px;
+        .back-store-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--accent-yellow);
+            border-radius: 20px;
+            color: var(--accent-yellow);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
         }
 
-        /* Order Identity Card Blocks */
-        .order-terminal-card {
-            background-color: var(--surface-card);
-            border: 1px solid var(--border-color);
-            padding: 30px;
+        /* --- NO ORDERS STATE --- */
+        .no-orders-box {
+            background-color: #1A1919;
+            border: 2px dashed rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* --- ACTIVE ORDER MANAGEMENT BOARD --- */
+        .order-management-card {
+            background-color: #1A1919;
+            border: 2px solid var(--brand-brown);
+            border-radius: 24px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+        }
+
+        .order-info-pane h2 {
+            font-family: var(--font-bubble);
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+
+        .meta-line {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.7);
+        }
+        .meta-line strong { color: var(--accent-yellow); }
+
+        .address-block {
+            background: #0B0A0A;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-yellow);
+        }
+
+        /* --- CONTROL PANEL CONTROLS --- */
+        .order-control-pane {
+            border-left: 2px solid rgba(255,255,255,0.05);
+            padding-left: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: border-color 0.3s ease;
-        }
-        .order-terminal-card:hover { border-color: #444444; }
-
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            justify-content: center;
+            gap: 20px;
         }
 
-        .invoice-id { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
-
-        /* Custom Selector Configuration */
-        .status-dropdown {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            border: 1px solid #333335;
-            padding: 8px 12px;
-            font-size: 12px;
-            font-weight: 600;
+        .status-label {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
             letter-spacing: 0.5px;
+        }
+
+        select class-selector {
+            width: 100%;
+        }
+
+        .admin-select {
+            width: 100%;
+            background-color: #0B0A0A;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 16px;
+            border-radius: 12px;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 700;
             outline: none;
             cursor: pointer;
         }
-
-        .meta-property { font-size: 13px; color: var(--text-muted); margin: 6px 0; line-height: 1.5; }
-        .meta-property strong { color: #bbbbbb; font-weight: 600; }
-
-        /* Embedded Manifest Container Box */
-        .manifest-box {
-            background-color: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .manifest-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: #ffffff;
-            margin-bottom: 4px;
+        .admin-select:focus {
+            border-color: var(--accent-yellow);
         }
 
-        .total-ledger {
-            margin-top: 20px;
-            text-align: right;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
+        .update-status-btn {
+            background-color: var(--accent-yellow);
+            color: var(--brand-brown);
+            border: none;
+            padding: 16px;
+            border-radius: 30px;
+            font-family: var(--font-bubble);
+            font-size: 18px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 900;
+            text-align: center;
+        }
+        .update-status-btn:hover { background-color: #FFFFFF; }
+
+        @media (max-width: 768px) {
+            .order-management-card { grid-template-columns: 1fr; }
+            .order-control-pane { border-left: none; padding-left: 0; }
         }
     </style>
 </head>
-<body class="fade-in">
+<body>
 
-    <nav>
-        <div class="logo">FLIP BURGER // KITCHEN TERMINAL</div>
-        <button class="refresh-trigger">SYNC DATABASE</button>
-    </nav>
+    <div class="admin-container">
+        <header>
+            <h1>Flip Burger Kitchen Admin</h1>
+            <a href="home.html" class="back-store-btn">← Customer Store</a>
+        </header>
 
-    <div class="workspace-panel">
-        <div class="section-headline">Active Queue Manifest</div>
-        
-        <div class="matrix-grid" id="terminalGridTarget">
-            <p style="color:var(--text-muted); font-size:14px;">Querying database records...</p>
-        </div>
+        <main id="adminMainContent">
+            </main>
     </div>
-<script>
-    const ENGINE_URL = "http://127.0.0.1:8000";
 
-    // 1. Pull system row snapshots out of SQLite tables
-    async function syncKitchenQueue() {
-        try {
-            const pullRequest = await fetch(`${ENGINE_URL}/admin/orders`);
-            const completeOrderCollection = await pullRequest.json();
-            rebuildTerminalInterfaceGrid(completeOrderCollection);
-        } catch (error) {
-            document.getElementById('terminalGridTarget').innerHTML = '<p style="color:red; font-size:14px;">Pipeline extraction fault.</p>';
-        }
-    }
+    <script>
+        function loadAdminDashboard() {
+            const mainContainer = document.getElementById('adminMainContent');
+            const activeOrder = JSON.parse(localStorage.getItem('active_flip_order'));
 
-    // 2. Map structural components inside dynamic cards loops
-    function rebuildTerminalInterfaceGrid(records) {
-        const structuralGridTarget = document.getElementById('terminalGridTarget');
-        
-        if (records.length === 0) {
-            structuralGridTarget.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">Queue clear. No pending transactions recorded.</p>';
-            return;
-        }
-
-        structuralGridTarget.innerHTML = '';
-        records.forEach(orderRow => {
-            // Compile product rows strings manifest arrays
-            let itemsBlockHtml = '';
-            orderRow.items.forEach(productManifestLine => {
-                itemsBlockHtml += `
-                    <div class="manifest-item">
-                        <span>• ${productManifestLine.name}</span>
-                        <span style="color:var(--text-muted);">x${productManifestLine.quantity}</span>
+            if (!activeOrder) {
+                mainContainer.innerHTML = `
+                    <div class="no-orders-box">
+                        <h2>No Incoming Orders Available</h2>
+                        <p style="margin-top: 10px;">When a client checks out from the Order Now page, their order records will sync live here.</p>
                     </div>
                 `;
-            });
+                return;
+            }
 
-            // Append cards configuration structures dynamically
-            structuralGridTarget.innerHTML += `
-                <div class="order-terminal-card">
-                    <div>
-                        <div class="terminal-header">
-                            <span class="invoice-id">INVOICE #${orderRow.order_id}</span>
-                            <select class="status-dropdown" onchange="dispatchStateTransition(${orderRow.order_id}, this.value)">
-                                <option value="Pending" ${orderRow.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                                <option value="Preparing" ${orderRow.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
-                                <option value="Completed" ${orderRow.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                            </select>
+            // Fallback default status code tracking strings safely if not set yet
+            if(!activeOrder.statusId) {
+                activeOrder.statusId = 1; 
+            }
+
+            mainContainer.innerHTML = `
+                <div class="order-management-card">
+                    <div class="order-info-pane">
+                        <h2>Active Ticket: ${activeOrder.orderId}</h2>
+                        <div style="margin-top: 20px;">
+                            <p class="meta-line"><strong>Customer:</strong> ${activeOrder.customerName}</p>
+                            <p class="meta-line"><strong>Contact Phone:</strong> ${activeOrder.customerPhone}</p>
+                            <p class="meta-line"><strong>Bill Valuation:</strong> ${activeOrder.totalBill} PKR</p>
                         </div>
-                        <div class="meta-property"><strong>Client Name:</strong> ${orderRow.customer_name}</div>
-                        <div class="meta-property"><strong>Contact Line:</strong> ${orderRow.phone_number}</div>
-                        <div class="meta-property"><strong>Destination:</strong> ${orderRow.address_or_table}</div>
                         
-                        <div class="manifest-box">
-                            ${itemsBlockHtml}
+                        <div class="address-block">
+                            <p class="status-label" style="margin-bottom: 4px;">Delivery Target Destination</p>
+                            <p style="font-weight: 700; color: #FFF;">${activeOrder.customerAddress}</p>
                         </div>
                     </div>
-                    <div class="total-ledger">
-                        Rs. ${orderRow.total_bill}
+
+                    <div class="order-control-pane">
+                        <div>
+                            <p class="status-label" style="margin-bottom: 10px;">Update Order Progress Node</p>
+                            <select class="admin-select" id="statusSelector">
+                                <option value="1" ${activeOrder.statusId == 1 ? 'selected' : ''}>1. Order Confirmed ✓</option>
+                                <option value="2" ${activeOrder.statusId == 2 ? 'selected' : ''}>2. In the Kitchen 🔥</option>
+                                <option value="3" ${activeOrder.statusId == 3 ? 'selected' : ''}>3. Out for Delivery 🚲</option>
+                                <option value="4" ${activeOrder.statusId == 4 ? 'selected' : ''}>4. Arrived & Enjoyed 🍔</option>
+                            </select>
+                        </div>
+
+                        <button class="update-status-btn" onclick="saveAdminStatusChanges()">Publish Status Update 📡</button>
                     </div>
                 </div>
             `;
-        });
-    }
-
-    // 3. Dispatch reactive state change transactions straight back to SQLite fields
-    async function dispatchStateTransition(targetInvoiceId, updatedStateString) {
-        try {
-            await fetch(`${ENGINE_URL}/admin/orders/${targetInvoiceId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ new_status: updatedStateString })
-            });
-            console.log(`Invoice #${targetInvoiceId} changed state tracking parameter to [${updatedStateString}]`);
-        } catch (err) {
-            alert("State tracking adjustments execution failure.");
         }
-    }
 
-    // Attach click events handlers variables parameters cleanly
-    document.querySelector('.refresh-trigger').setAttribute('onclick', 'syncKitchenQueue()');
+        function saveAdminStatusChanges() {
+            const activeOrder = JSON.parse(localStorage.getItem('active_flip_order'));
+            if (!activeOrder) return;
 
-    // Run instantiation routine on process bootstrap threads
-    syncKitchenQueue();
-</script>
+            const selector = document.getElementById('statusSelector');
+            
+            // Set the new manual admin chosen status integer code
+            activeOrder.statusId = parseInt(selector.value);
+
+            // Re-save the object block back down into storage
+            localStorage.setItem('active_flip_order', JSON.stringify(activeOrder));
+            
+            alert("Order status successfully published! Your client's tracking monitor page will refresh live.");
+            loadAdminDashboard();
+        }
+
+        window.onload = loadAdminDashboard;
+    </script>
 </body>
 </html>
