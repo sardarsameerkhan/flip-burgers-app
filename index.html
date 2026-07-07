@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Burger - Order Online</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #fcf8f2; color: #333; }
+        header { background-color: #e63946; color: white; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .menu-section, .cart-section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h2 { border-bottom: 2px solid #f1faee; padding-bottom: 10px; color: #1d3557; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .menu-details h3 { margin: 0 0 5px 0; color: #e63946; }
+        .menu-details p { margin: 0; color: #666; font-size: 14px; }
+        .btn { padding: 8px 16px; background-color: #1d3557; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background-color: #457b9d; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+        .form-group { margin-top: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .checkout-btn { width: 100%; padding: 12px; background-color: #e63946; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .checkout-btn:hover { background-color: #c1121f; }
+        #orderSuccess { display: none; background-color: #d4edda; color: #155724; padding: 15px; border-radius: 6px; margin-top: 20px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>🍔 FLIP BURGER - GUJRANWALA</header>
+
+<div class="container">
+    <div class="menu-section">
+        <h2>Our Menu</h2>
+        <div id="menuContainer">Menu items will render here...</div>
+    </div>
+
+    <div class="cart-section">
+        <h2>Your Order Cart</h2>
+        <div id="cartItems">Your cart is empty.</div>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <h3>Total: Rs. <span id="cartTotal">0</span></h3>
+
+        <div class="form-group">
+            <label for="custName">Your Name</label>
+            <input type="text" id="custName" placeholder="e.g., Bilal Ahmed">
+        </div>
+        <div class="form-group">
+            <label for="custPhone">Phone Number</label>
+            <input type="text" id="custPhone" placeholder="e.g., 03001234567">
+        </div>
+        <div class="form-group">
+            <label for="custAddress">Table Number or Home Address</label>
+            <input type="text" id="custAddress" placeholder="e.g., Table 2 or Satellite Town">
+        </div>
+
+        <button class="checkout-btn">Place Order</button>
+        <div id="orderSuccess"></div>
+    </div>
+</div>
+
+</body>
+</html>
