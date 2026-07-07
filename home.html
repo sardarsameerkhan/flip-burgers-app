@@ -29,10 +29,9 @@
             font-family: var(--font-sans);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 60px;
+            padding-bottom: 80px;
         }
 
-        /* Hero Container adjustments to allow natural page scrolling down to the card */
         .page-container {
             width: 100%;
             display: flex;
@@ -124,6 +123,7 @@
             z-index: 1;
         }
 
+        /* Fixed Center Floating Frame Wrapper */
         .burger-hero-image-frame {
             position: absolute;
             top: 52%;
@@ -131,7 +131,7 @@
             transform: translate(-50%, -50%);
             z-index: 5;
             width: 100%;
-            max-width: 520px;
+            max-width: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -142,61 +142,79 @@
             width: 100%;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 25px 35px rgba(84,30,6,0.3));
+            filter: drop-shadow(0 30px 40px rgba(84,30,6,0.35));
+            animation: smoothFloat 4s ease-in-out infinite;
         }
 
-        /* --- NEW FEATURED HISTORY BLOCK SECTION --- */
+        @keyframes smoothFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- THE UPGRADED FLAVOR HISTORY SECTION --- */
         .history-card-section {
             width: 90%;
             max-width: 1400px;
             background-color: var(--accent-yellow);
             border: 3px solid var(--brand-brown);
             border-radius: 40px;
-            margin: 40px auto 20px auto;
-            padding: 60px 80px;
+            margin: 60px auto 20px auto;
+            padding: 40px 80px;
             display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 60px;
+            grid-template-columns: 1.1fr 0.9fr; /* Gives more room for a giant burger display */
+            gap: 40px;
             align-items: center;
+            position: relative;
         }
 
+        /* Scaled to let the image burst outward massively */
         .history-image-box {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
 
         .history-image-box img {
-            width: 115%; /* Slight overflow to match the large presence of the reference picture */
+            width: 140%; /* Made massive to look heavy, oversized, and premium */
+            max-width: 750px;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 20px 30px rgba(84,30,6,0.25));
+            margin-left: -70px; /* Shifts left slightly to overlap beautifully */
+            filter: drop-shadow(0 30px 45px rgba(84,30,6,0.4));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        /* Interactive pop out effect on scroll hover */
+        .history-card-section:hover .history-image-box img {
+            transform: scale(1.05) rotate(-1deg);
         }
 
         .history-content-box {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            z-index: 5;
         }
 
         .history-title {
             font-family: var(--font-bubble);
-            font-size: clamp(48px, 5.5vw, 76px);
+            font-size: clamp(52px, 5.8vw, 82px);
             font-weight: 900;
-            line-height: 0.95;
+            line-height: 0.92;
             color: var(--brand-brown);
             margin-bottom: 25px;
-            letter-spacing: -1px;
+            letter-spacing: -1.5px;
         }
 
         .history-tagline {
-            font-size: clamp(18px, 2vw, 24px);
+            font-size: clamp(18px, 2vw, 25px);
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.35;
             color: var(--brand-brown);
-            opacity: 0.95;
-            max-width: 540px;
+            max-width: 480px;
         }
     </style>
 </head>
@@ -226,13 +244,13 @@
             </h1>
 
             <div class="burger-hero-image-frame">
-                <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Photo.png" alt="Flip Burger Stack centerpiece">
+                <img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c1a8.png" alt="Flip Burger Centerpiece Double Stack">
             </div>
         </div>
 
         <section class="history-card-section">
             <div class="history-image-box">
-                <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Transparent-Image.png" alt="Featured Fresh Burger Selection Element">
+                <img src="https://pngimg.com/d/burger_PNG93910.png" alt="Colossal Massive Featured Burger Selection Element">
             </div>
             
             <div class="history-content-box">
@@ -241,16 +259,6 @@
             </div>
         </section>
     </div>
-<script>
-    // Adding minor elegant hover scaling variables to your pill buttons dynamically
-    document.querySelectorAll('.pill-btn').forEach(btn => {
-        btn.addEventListener('mouseenter', () => {
-            btn.style.transform = 'scale(1.04) translateY(-1px)';
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'scale(1) translateY(0)';
-        });
-    });
-</script>
+
 </body>
 </html>
