@@ -207,6 +207,26 @@
             <p>Direct tracking coordination mapping straight to your digital workspace or designated table station code.</p>
         </div>
     </div>
+<script>
+    // Intersection Observer API for fluid scroll reveal actions
+    const elementObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
 
+    // Apply clean starting parameters and register targets
+    document.querySelectorAll('.reveal').forEach(block => {
+        block.style.opacity = '0';
+        block.style.transform = 'translateY(30px)';
+        block.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        elementObserver.observe(block);
+    });
+</script>
 </body>
 </html>
