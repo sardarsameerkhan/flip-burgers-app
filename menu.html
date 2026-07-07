@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLIP BURGER | Digital Menu</title>
+    <style>
+        /* Noir Premium Design System */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #111111;
+            --surface-card: #161616;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* Smooth Page Transition */
+        .fade-in {
+            animation: fadeInPage 1s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-size: 20px; font-weight: 900; letter-spacing: 2px; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+        /* Main Workspace Split */
+        .wrapper {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        /* Grid Layout for Food Cards */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .food-card:hover {
+            border-color: #555555;
+            transform: translateY(-5px);
+        }
+
+        .food-card h3 { margin: 0 0 5px 0; font-size: 18px; font-weight: 700; }
+        .food-card .category { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; }
+        .food-card .price { font-size: 16px; font-weight: 800; margin-top: 15px; }
+
+        /* Actions Button Base */
+        .add-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+        .add-btn:hover { background-color: #dddddd; }
+
+        /* Sidebar Checkout Design */
+        .cart-panel {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            align-self: start;
+            position: sticky;
+            top: 120px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #dddddd;
+        }
+
+        /* Checkout Inputs Layout */
+        .input-group { margin-top: 20px; }
+        .input-group label { display: block; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        .input-group input:focus { border-color: #666666; outline: none; }
+
+        .checkout-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .checkout-submit:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        #successMessage {
+            display: none;
+            border: 1px solid #ffffff;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            animation: fadeInPage 0.4s ease-out;
+        }
+    </style>
+</head>
+<body class="fade-in">
+
+    <nav>
+        <div class="logo">FLIP BURGER.</div>
+        <div class="nav-links">
+            <a href="home.html">HOME</a>
+            <a href="menu.html" class="active">ORDER MENU</a>
+            <a href="track.html">TRACK ORDER</a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        
+        <div>
+            <h2>EXPLORE MENU</h2>
+            <div class="menu-grid" id="menuTarget">
+                <p style="color:var(--text-muted);">Fetching premium menu listings...</p>
+            </div>
+        </div>
+
+        <div class="cart-panel">
+            <h2 style="font-size:20px; padding-bottom:10px;">YOUR BAG</h2>
+            <div id="cartItemsList" style="color:var(--text-muted); font-size:14px;">Bag is empty.</div>
+            
+            <hr style="border:0; border-top:1px solid var(--border-color); margin:20px 0;">
+            <div style="display:flex; justify-content:between; font-weight:800; font-size:18px;">
+                <span style="flex-grow:1;">SUBTOTAL:</span>
+                <span>Rs. <span id="cartTotalSum">0</span></span>
+            </div>
+
+            <div class="input-group">
+                <label>Customer Name</label>
+                <input type="text" id="orderName" placeholder="e.g., Zain Malik">
+            </div>
+            <div class="input-group">
+                <label>Contact Phone</label>
+                <input type="text" id="orderPhone" placeholder="e.g., 03001234567">
+            </div>
+            <div class="input-group">
+                <label>Table / Dispatch Address</label>
+                <input type="text" id="orderAddress" placeholder="e.g., Table 5 or WAPDA Town">
+            </div>
+
+            <button class="checkout-submit">CONFIRM ORDER</button>
+            <div id="successMessage"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
