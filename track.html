@@ -46,6 +46,62 @@
         <h3 style="text-align: right; color: #e63946;">Total Bill: Rs. <span id="totalBill">0</span></h3>
     </div>
 </div>
+<script>
+    const BACKEND_URL = "http://127.0.0.1:8000";
 
+    async function trackOrder() {
+        const orderId = document.getElementById('orderIdInput').value;
+        const card = document.getElementById('statusCard');
+
+        if (!orderId) {
+            alert("Please type in an Order ID first!");
+            return;
+        }
+
+        try {
+            // Call Route D from our Python backend (/track/{order_id})
+            const response = await fetch(`${BACKEND_URL}/track/${orderId}`);
+            
+            if (response.status === 404) {
+                alert("Order ID not found. Please double-check your number.");
+                card.style.display = "none";
+                return;
+            }
+
+            const order = await response.json();
+
+            // Populate text onto the screen
+            document.getElementById('displayOrderId').innerText = order.order_id;
+            document.getElementById('orderStatus').innerText = order.status;
+            document.getElementById('customerName').innerText = order.customer_name;
+            document.getElementById('customerLocation').innerText = order.address_or_table;
+            document.getElementById('totalBill').innerText = order.total_bill;
+
+            // Change badge colors depending on status vibes
+            const badge = document.getElementById('orderStatus');
+            if (order.status === "Pending") badge.style.backgroundColor = "#f1a545";
+            if (order.status === "Preparing") badge.style.backgroundColor = "#007bff";
+            if (order.status === "Completed") badge.style.backgroundColor = "#28a745";
+
+            // Render items list inside the loop
+            const itemsContainer = document.getElementById('itemsContainer');
+            itemsContainer.innerHTML = '';
+            order.items.forEach(item => {
+                itemsContainer.innerHTML += `
+                    <div class="item-row">
+                        <span>${item.name} x${item.quantity}</span>
+                        <span>Rs. ${item.price * item.quantity}</span>
+                    </div>
+                `;
+            });
+
+            // Make card visible
+            card.style.display = "block";
+
+        } catch (error) {
+            alert("Could not connect to the backend server.");
+        }
+    }
+</script>
 </body>
 </html>
