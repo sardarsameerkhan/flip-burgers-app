@@ -107,7 +107,6 @@
             margin: 40px auto 80px auto;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 0;
             background-color: #FAF4E8;
             border: 3px solid var(--brand-brown);
             border-radius: 40px;
@@ -115,10 +114,8 @@
             box-shadow: 0 20px 40px rgba(84,30,6,0.05);
         }
 
-        /* --- LEFT COLUMN: ORDER SUMMARY --- */
-        .order-summary-panel {
-            padding: 60px;
-        }
+        /* --- LEFT PANEL --- */
+        .order-summary-panel { padding: 60px; }
 
         .order-title {
             font-family: var(--font-bubble);
@@ -136,6 +133,7 @@
             border-bottom: 2px dashed rgba(84, 30, 6, 0.15);
             padding-bottom: 30px;
             margin-bottom: 30px;
+            min-height: 120px;
         }
 
         .cart-item {
@@ -149,12 +147,6 @@
             font-weight: 800;
             text-transform: uppercase;
             color: var(--brand-brown);
-            margin-bottom: 4px;
-        }
-
-        .cart-item-detail p {
-            font-size: 14px;
-            color: rgba(84, 30, 6, 0.6);
         }
 
         .cart-item-controls {
@@ -176,7 +168,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.1s ease;
         }
         .quantity-btn:hover {
             background-color: var(--brand-brown);
@@ -193,11 +184,10 @@
         .cart-item-price {
             font-size: 18px;
             font-weight: 800;
-            width: 80px;
+            width: 100px;
             text-align: right;
         }
 
-        /* Pricing Totals Bracket */
         .summary-total-block {
             display: flex;
             flex-direction: column;
@@ -223,7 +213,15 @@
             text-transform: uppercase;
         }
 
-        /* --- RIGHT COLUMN: CUSTOMER FORM PANEL --- */
+        .empty-basket-note {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgba(84,30,6,0.4);
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        /* --- RIGHT PANEL: SECURE FORM --- */
         .order-form-panel {
             background-color: #0B0A0A;
             color: #FFFFFF;
@@ -239,28 +237,16 @@
             font-size: 32px;
             font-weight: 900;
             text-transform: uppercase;
-            color: #FFFFFF;
             margin-bottom: 30px;
-            letter-spacing: 0.5px;
         }
 
-        .checkout-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .checkout-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
 
         .form-group label {
             font-size: 13px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: rgba(255, 255, 255, 0.6);
         }
 
@@ -273,14 +259,8 @@
             font-size: 15px;
             color: #FFFFFF;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--accent-yellow);
-        }
-
-        /* Big Punchy Call To Action Checkout Button */
         .submit-order-btn {
             width: 100%;
             background-color: var(--accent-yellow);
@@ -297,27 +277,13 @@
             text-align: center;
             display: inline-block;
             margin-top: 20px;
-            transition: transform 0.1s ease, background-color 0.2s;
         }
+        .submit-order-btn:hover { background-color: #FFFFFF; }
 
-        .submit-order-btn:hover {
-            background-color: #FFFFFF;
-            transform: translateY(-2px);
-        }
-
-        /* --- RESPONSIVE CONFIGURATIONS --- */
         @media (max-width: 1024px) {
-            .order-main-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .order-form-panel {
-                border-left: none;
-                border-top: 3px solid var(--brand-brown);
-                padding: 40px;
-            }
-            .order-summary-panel {
-                padding: 40px;
-            }
+            .order-main-wrapper { grid-template-columns: 1fr; }
+            .order-form-panel { border-left: none; border-top: 3px solid var(--brand-brown); padding: 40px; }
+            .order-summary-panel { padding: 40px; }
         }
     </style>
 </head>
@@ -326,14 +292,9 @@
     <div class="page-container">
         <nav>
             <a href="home.html" class="brand-logo-container">
-                <div class="burger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="burger-icon"><span></span><span></span><span></span></div>
                 Flip Burger
             </a>
-            
             <div class="nav-actions">
                 <a href="menu.html" class="pill-btn">☰ Menu</a>
                 <a href="order.html" class="pill-btn active">📝 Order Now</a>
@@ -345,78 +306,98 @@
             
             <div class="order-summary-panel">
                 <h2 class="order-title">Your Basket</h2>
-                
-                <div class="cart-items-list">
-                    <div class="cart-item">
-                        <div class="cart-item-detail">
-                            <h4>The OG Flip (Double)</h4>
-                            <p>Smashed beef, layered cheese, onion jam</p>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity-num">1</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <span class="cart-item-price">940</span>
+                <div class="cart-items-list" id="basketItemsList">
                     </div>
-
-                    <div class="cart-item">
-                        <div class="cart-item-detail">
-                            <h4>Curly Fries</h4>
-                            <p>Seasoned spiral cut crispy potatoes</p>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="quantity-btn">-</button>
-                            <span class="quantity-num">2</span>
-                            <button class="quantity-btn">+</button>
-                        </div>
-                        <span class="cart-item-price">780</span>
-                    </div>
-                </div>
 
                 <div class="summary-total-block">
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span>1720</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Delivery Fee</span>
-                        <span>120</span>
-                    </div>
-                    <div class="summary-row grand-total">
-                        <span>Total Amount</span>
-                        <span>1840 PKR</span>
-                    </div>
+                    <div class="summary-row"><span>Subtotal</span><span id="subtotalVal">0</span></div>
+                    <div class="summary-row"><span>Delivery Fee</span><span id="deliveryVal">120</span></div>
+                    <div class="summary-row grand-total"><span>Total Amount</span><span id="grandTotalVal">0 PKR</span></div>
                 </div>
             </div>
 
             <div class="order-form-panel">
                 <div>
                     <h3 class="form-heading">Delivery Details</h3>
-                    
-                    <form class="checkout-form" onsubmit="event.preventDefault();">
+                    <form class="checkout-form" id="checkoutForm">
                         <div class="form-group">
-                            <label for="cust-name">Full Name</label>
-                            <input type="text" id="cust-name" placeholder="e.g. Kristen Stewart" required>
+                            <label>Full Name</label>
+                            <input type="text" placeholder="e.g. Kristen Stewart" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="cust-phone">Phone Number</label>
-                            <input type="tel" id="cust-phone" placeholder="e.g. +92 300 1234567" required>
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="e.g. +92 300 1234567" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="cust-address">Delivery Address</label>
-                            <textarea id="cust-address" rows="3" placeholder="Street address, apartment, city corner" required></textarea>
+                            <label>Delivery Address</label>
+                            <textarea rows="3" placeholder="Street address, apartment, city corner" required></textarea>
                         </div>
                     </form>
                 </div>
 
-                <a href="track.html" class="submit-order-btn">Confirm Order 🚀</a>
+                <a href="track.html" class="submit-order-btn" onclick="clearCart()">Confirm Order 🚀</a>
             </div>
-
         </main>
     </div>
 
+    <script>
+        let cart = JSON.parse(localStorage.getItem('flip_burger_cart')) || [];
+
+        function renderBasket() {
+            const listContainer = document.getElementById('basketItemsList');
+            listContainer.innerHTML = "";
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `<p class="empty-basket-note">Your basket is completely empty. Go to the menu to add some burgers!</p>`;
+                document.getElementById('subtotalVal').innerText = "0";
+                document.getElementById('deliveryVal').innerText = "0";
+                document.getElementById('grandTotalVal').innerText = "0 PKR";
+                return;
+            }
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                let itemCost = item.price * item.qty;
+                subtotal += itemCost;
+
+                listContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-detail">
+                            <h4>${item.name}</h4>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="adjustQty(${index}, -1)">-</button>
+                            <span class="quantity-num">${item.qty}</span>
+                            <button class="quantity-btn" onclick="adjustQty(${index}, 1)">+</button>
+                        </div>
+                        <span class="cart-item-price">${itemCost}</span>
+                    </div>
+                `;
+            });
+
+            let delivery = 120;
+            let grandTotal = subtotal + delivery;
+
+            document.getElementById('subtotalVal').innerText = subtotal;
+            document.getElementById('deliveryVal').innerText = delivery;
+            document.getElementById('grandTotalVal').innerText = grandTotal + " PKR";
+        }
+
+        function adjustQty(index, modifier) {
+            cart[index].qty += modifier;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('flip_burger_cart', JSON.stringify(cart));
+            renderBasket();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('flip_burger_cart');
+        }
+
+        window.onload = renderBasket;
+    </script>
 </body>
 </html>
