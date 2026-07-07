@@ -3,118 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Burger - Admin Dashboard</title>
+    <title>FLIP BURGER | Admin Terminal</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #121214; color: #e4e6eb; }
-        header { background-color: #e63946; color: white; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #2f3136; padding-bottom: 15px; }
-        .refresh-btn { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .refresh-btn:hover { background-color: #218838; }
-        .orders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-        .order-card { background-color: #1e1f22; border-radius: 8px; border: 1px solid #2f3136; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2f3136; padding-bottom: 10px; margin-bottom: 15px; }
-        .order-id { font-size: 18px; font-weight: bold; color: #e63946; }
-        .status-select { padding: 6px; background-color: #2b2d31; color: white; border: 1px solid #4e5058; border-radius: 4px; cursor: pointer; }
-        .order-details p { margin: 5px 0; font-size: 14px; color: #b5bac1; }
-        .items-box { background-color: #2b2d31; padding: 10px; border-radius: 6px; margin-top: 10px; }
-        .item-line { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; color: #ffffff; }
+        /* Noir Premium Design Token Architecture */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #0c0c0e;
+            --surface-card: #121214;
+            --text-main: #ffffff;
+            --text-muted: #777777;
+            --border-color: #1e1e22;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .fade-in {
+            animation: fadeInPage 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Administration Header Module */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+        }
+
+        .logo { font-size: 16px; font-weight: 900; letter-spacing: 3px; color: var(--text-main); }
+        
+        .refresh-trigger {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 10px 22px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .refresh-trigger:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Workspace Grid Wrapper */
+        .workspace-panel {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .section-headline {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+
+        /* Order Identity Card Blocks */
+        .order-terminal-card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.3s ease;
+        }
+        .order-terminal-card:hover { border-color: #444444; }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .invoice-id { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+
+        /* Custom Selector Configuration */
+        .status-dropdown {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid #333335;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .meta-property { font-size: 13px; color: var(--text-muted); margin: 6px 0; line-height: 1.5; }
+        .meta-property strong { color: #bbbbbb; font-weight: 600; }
+
+        /* Embedded Manifest Container Box */
+        .manifest-box {
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .manifest-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .total-ledger {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
     </style>
 </head>
-<body>
+<body class="fade-in">
 
-<header>👑 FLIP BURGER - MANAGER CONTROL PANEL</header>
+    <nav>
+        <div class="logo">FLIP BURGER // KITCHEN TERMINAL</div>
+        <button class="refresh-trigger">SYNC DATABASE</button>
+    </nav>
 
-<div class="container">
-    <div class="dashboard-header">
-        <h2>Live Incoming Orders</h2>
-        <button class="refresh-btn">Refresh Panel</button>
-    </div>
-
-    <div class="orders-grid" id="ordersGrid">
-        <p style="color: #b5bac1;">No orders placed yet. Keep the screen open...</p>
-    </div>
-</div>
-<script>
-    const BACKEND_URL = "http://127.0.0.1:8000";
-
-    // 1. Fetch all system orders from the server
-    async function loadAllOrders() {
-        try {
-            const response = await fetch(`${BACKEND_URL}/admin/orders`);
-            const orders = await response.json();
-            renderOrdersGrid(orders);
-        } catch (error) {
-            console.error("Failed fetching orders:", error);
-        }
-    }
-
-    // 2. Render each order inside a dark dashboard card
-    function renderOrdersGrid(orders) {
-        const grid = document.getElementById('ordersGrid');
+    <div class="workspace-panel">
+        <div class="section-headline">Active Queue Manifest</div>
         
-        if (orders.length === 0) {
-            grid.innerHTML = '<p style="color: #b5bac1;">No orders placed yet. Waiting for incoming traffic...</p>';
-            return;
-        }
+        <div class="matrix-grid" id="terminalGridTarget">
+            <p style="color:var(--text-muted); font-size:14px;">Querying database records...</p>
+        </div>
+    </div>
 
-        grid.innerHTML = '';
-        orders.forEach(order => {
-            // Build the items string
-            let itemsHtml = '';
-            order.items.forEach(item => {
-                itemsHtml += `
-                    <div class="item-line">
-                        <span>${item.name} x${item.quantity}</span>
-                    </div>
-                `;
-            });
-
-            // Status select array configurations
-            grid.innerHTML += `
-                <div class="order-card">
-                    <div class="card-header">
-                        <span class="order-id">Order #${order.order_id}</span>
-                        <select class="status-select" onchange="updateStatus(${order.order_id}, this.value)">
-                            <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                            <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
-                            <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                        </select>
-                    </div>
-                    <div class="order-details">
-                        <p><strong>Customer:</strong> ${order.customer_name}</p>
-                        <p><strong>Phone:</strong> ${order.phone_number}</p>
-                        <p><strong>Destination:</strong> ${order.address_or_table}</p>
-                        <div class="items-box">
-                            <strong>Items:</strong>
-                            ${itemsHtml}
-                        </div>
-                        <h4 style="margin-top:15px; text-align:right; color:#28a745;">Total Bill: Rs. ${order.total_bill}</h4>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    // 3. Connect status updates to Route E on the backend
-    async function updateStatus(orderId, newStatus) {
-        try {
-            await fetch(`${BACKEND_URL}/admin/orders/${orderId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ new_status: newStatus })
-            });
-            alert(`Order #${orderId} changed status to ${newStatus}`);
-        } catch (error) {
-            alert("Could not update status on server backend.");
-        }
-    }
-
-    // Set listener for refresh button click
-    document.querySelector('.refresh-btn').setAttribute('onclick', 'loadAllOrders()');
-
-    // Load instantly on screen wake
-    loadAllOrders();
-</script>
 </body>
 </html>
