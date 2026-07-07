@@ -241,6 +241,16 @@
             </div>
         </section>
     </div>
-
+<script>
+    // Adding minor elegant hover scaling variables to your pill buttons dynamically
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.transform = 'scale(1.04) translateY(-1px)';
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'scale(1) translateY(0)';
+        });
+    });
+</script>
 </body>
 </html>
