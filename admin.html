@@ -159,6 +159,89 @@
             <p style="color:var(--text-muted); font-size:14px;">Querying database records...</p>
         </div>
     </div>
+<script>
+    const ENGINE_URL = "http://127.0.0.1:8000";
 
+    // 1. Pull system row snapshots out of SQLite tables
+    async function syncKitchenQueue() {
+        try {
+            const pullRequest = await fetch(`${ENGINE_URL}/admin/orders`);
+            const completeOrderCollection = await pullRequest.json();
+            rebuildTerminalInterfaceGrid(completeOrderCollection);
+        } catch (error) {
+            document.getElementById('terminalGridTarget').innerHTML = '<p style="color:red; font-size:14px;">Pipeline extraction fault.</p>';
+        }
+    }
+
+    // 2. Map structural components inside dynamic cards loops
+    function rebuildTerminalInterfaceGrid(records) {
+        const structuralGridTarget = document.getElementById('terminalGridTarget');
+        
+        if (records.length === 0) {
+            structuralGridTarget.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">Queue clear. No pending transactions recorded.</p>';
+            return;
+        }
+
+        structuralGridTarget.innerHTML = '';
+        records.forEach(orderRow => {
+            // Compile product rows strings manifest arrays
+            let itemsBlockHtml = '';
+            orderRow.items.forEach(productManifestLine => {
+                itemsBlockHtml += `
+                    <div class="manifest-item">
+                        <span>• ${productManifestLine.name}</span>
+                        <span style="color:var(--text-muted);">x${productManifestLine.quantity}</span>
+                    </div>
+                `;
+            });
+
+            // Append cards configuration structures dynamically
+            structuralGridTarget.innerHTML += `
+                <div class="order-terminal-card">
+                    <div>
+                        <div class="terminal-header">
+                            <span class="invoice-id">INVOICE #${orderRow.order_id}</span>
+                            <select class="status-dropdown" onchange="dispatchStateTransition(${orderRow.order_id}, this.value)">
+                                <option value="Pending" ${orderRow.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="Preparing" ${orderRow.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                                <option value="Completed" ${orderRow.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </div>
+                        <div class="meta-property"><strong>Client Name:</strong> ${orderRow.customer_name}</div>
+                        <div class="meta-property"><strong>Contact Line:</strong> ${orderRow.phone_number}</div>
+                        <div class="meta-property"><strong>Destination:</strong> ${orderRow.address_or_table}</div>
+                        
+                        <div class="manifest-box">
+                            ${itemsBlockHtml}
+                        </div>
+                    </div>
+                    <div class="total-ledger">
+                        Rs. ${orderRow.total_bill}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Dispatch reactive state change transactions straight back to SQLite fields
+    async function dispatchStateTransition(targetInvoiceId, updatedStateString) {
+        try {
+            await fetch(`${ENGINE_URL}/admin/orders/${targetInvoiceId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ new_status: updatedStateString })
+            });
+            console.log(`Invoice #${targetInvoiceId} changed state tracking parameter to [${updatedStateString}]`);
+        } catch (err) {
+            alert("State tracking adjustments execution failure.");
+        }
+    }
+
+    // Attach click events handlers variables parameters cleanly
+    document.querySelector('.refresh-trigger').setAttribute('onclick', 'syncKitchenQueue()');
+
+    // Run instantiation routine on process bootstrap threads
+    syncKitchenQueue();
+</script>
 </body>
 </html>
