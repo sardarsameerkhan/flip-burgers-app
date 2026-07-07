@@ -29,7 +29,6 @@
             font-family: var(--font-sans);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 80px;
         }
 
         .page-container {
@@ -150,7 +149,7 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* --- THE UPGRADED FLAVOR HISTORY SECTION --- */
+        /* --- FLAVOR HISTORY SECTION --- */
         .history-card-section {
             width: 90%;
             max-width: 1400px;
@@ -214,7 +213,7 @@
             max-width: 480px;
         }
 
-        /* --- NEW ADDITION: DISCOVER BEST BURGERS BROWN SECTION --- */
+        /* --- DISCOVER BEST BURGERS SECTION --- */
         .discovery-card-section {
             width: 90%;
             max-width: 1400px;
@@ -222,13 +221,13 @@
             border: 3px solid var(--brand-brown);
             border-radius: 40px;
             margin: 40px auto 20px auto;
-            padding: 40px 0 40px 80px; /* Right padding 0 lets the image bleed naturally */
+            padding: 40px 0 40px 80px; 
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             align-items: center;
             position: relative;
-            overflow: hidden; /* Clips the giant burger image cleanly inside the corners */
+            overflow: hidden; 
         }
 
         .discovery-content-box {
@@ -243,7 +242,7 @@
             font-size: clamp(48px, 5.5vw, 78px);
             font-weight: 900;
             line-height: 1.0;
-            color: var(--accent-yellow); /* Bright yellow headline contrast on dark brown */
+            color: var(--accent-yellow); 
             letter-spacing: -1px;
             max-width: 550px;
         }
@@ -258,16 +257,199 @@
         }
 
         .discovery-image-box img {
-            width: 125%; /* Massive sizing to match the right-side bleed display */
+            width: 125%; 
             height: auto;
             object-fit: contain;
-            margin-right: -40px; /* Overlaps edge cleanly */
+            margin-right: -40px; 
             filter: drop-shadow(-10px 15px 30px rgba(0,0,0,0.5));
         }
 
-        /* Responsive Breakpoints */
+        /* --- REVIEWS TESTIMONIAL SLIDER --- */
+        .reviews-card-section {
+            width: 90%;
+            max-width: 1400px;
+            background-color: var(--accent-yellow);
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            margin: 40px auto 40px auto;
+            padding: 50px 60px;
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+        }
+
+        .review-portrait-box {
+            width: 100%;
+            max-width: 340px;
+            height: 380px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 3px solid var(--brand-brown);
+            box-shadow: 0 15px 30px rgba(84,30,6,0.15);
+        }
+
+        .review-portrait-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-text-box {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .review-quote {
+            font-family: var(--font-bubble);
+            font-size: clamp(32px, 3.8vw, 52px);
+            font-weight: 900;
+            line-height: 1.12;
+            color: var(--brand-brown);
+            margin-bottom: 35px;
+            letter-spacing: -0.5px;
+        }
+
+        .review-author-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .author-name {
+            font-family: var(--font-sans);
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--brand-brown);
+        }
+
+        .slider-counter {
+            font-family: var(--font-bubble);
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--brand-brown);
+        }
+
+        .slider-counter span {
+            color: rgba(84, 30, 6, 0.35);
+        }
+
+        /* --- NEW ADDITION: FOOTER CLOSING SECTION Layout --- */
+        .closing-footer-container {
+            width: 100%;
+            position: relative;
+            margin-top: 100px;
+            padding-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-showcase-row {
+            width: 90%;
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: flex-end;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-cta-message {
+            font-family: var(--font-bubble);
+            font-size: clamp(52px, 6vw, 84px);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--brand-brown);
+            margin-bottom: 80px; /* Gives room above the ribbon floor */
+            letter-spacing: -1px;
+            max-width: 600px;
+        }
+
+        .footer-burst-image-box {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .footer-burst-image-box img {
+            width: 135%;
+            max-width: 780px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: -40px; /* Bleeds deep down through the footer ribbon */
+            filter: drop-shadow(0 20px 40px rgba(84,30,6,0.35));
+        }
+
+        .footer-yellow-ribbon {
+            width: 100%;
+            background-color: var(--accent-yellow);
+            border-top: 3px solid var(--brand-brown);
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+            margin-top: -60px; /* Layered overlap effect */
+        }
+
+        .ribbon-top-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ribbon-top-row .pill-btn {
+            background-color: transparent;
+            border-color: var(--brand-brown);
+        }
+
+        .ribbon-top-row .pill-btn:hover {
+            background-color: var(--brand-brown);
+            color: var(--accent-yellow);
+        }
+
+        .ribbon-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1.5px solid rgba(84, 30, 6, 0.15);
+            padding-top: 25px;
+            width: 100%;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-social-links a {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--brand-brown);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-social-links a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-copyright {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--brand-brown);
+            opacity: 0.8;
+        }
+
+        /* Responsive Adapters */
         @media (max-width: 1024px) {
-            .history-card-section, .discovery-card-section {
+            .history-card-section, .discovery-card-section, .reviews-card-section {
                 grid-template-columns: 1fr;
                 text-align: center;
                 padding: 40px;
@@ -278,13 +460,18 @@
                 margin-right: 0;
                 max-width: 450px;
             }
-            .discovery-image-box {
-                justify-content: center;
-                margin-top: 20px;
-            }
-            .discovery-title {
-                margin-index: auto;
-            }
+            .discovery-image-box { justify-content: center; margin-top: 20px; }
+            .review-portrait-box { margin: 0 auto; }
+            .review-text-box { align-items: center; }
+            .review-author-footer { flex-direction: column; gap: 20px; }
+            
+            .footer-showcase-row { grid-template-columns: 1fr; text-align: center; }
+            .footer-cta-message { max-width: 100%; margin-bottom: 40px; }
+            .footer-burst-image-box { justify-content: center; }
+            .footer-burst-image-box img { width: 100%; max-width: 500px; margin-bottom: 0; }
+            .footer-yellow-ribbon { margin-top: 20px; align-items: center; text-align: center; }
+            .ribbon-top-row { justify-content: center; }
+            .ribbon-bottom-row { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -300,7 +487,6 @@
                 </div>
                 Flip Burger
             </a>
-            
             <div class="nav-actions">
                 <a href="menu.html" class="pill-btn">☰ Menu</a>
                 <a href="menu.html" class="pill-btn">📝 Order Now</a>
@@ -312,7 +498,6 @@
             <h1 class="colossal-bg-text">
                 SMOKY<br>CHEESY<br>BURGER
             </h1>
-
             <div class="burger-hero-image-frame">
                 <img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c1a8.png" alt="Flip Burger Centerpiece Double Stack">
             </div>
@@ -322,7 +507,6 @@
             <div class="history-image-box">
                 <img src="https://pngimg.com/d/burger_PNG93910.png" alt="Colossal Massive Featured Burger Selection Element">
             </div>
-            
             <div class="history-content-box">
                 <h2 class="history-title">Flavor<br>That Makes<br>History!</h2>
                 <p class="history-tagline">Every bite is bold, smoky, and unforgettable.</p>
@@ -333,11 +517,49 @@
             <div class="discovery-content-box">
                 <h2 class="discovery-title">Discover<br>the Best<br>Burgers<br>in Town!</h2>
             </div>
-            
             <div class="discovery-image-box">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" alt="Discover the Best Burgers Asset">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" alt="Discover the Best Burgers Asset" style="mix-blend-mode: multiply; filter: brightness(1.1) contrast(1.1); transform: scale(1.2) translateX(30px);">
             </div>
         </section>
+
+        <section class="reviews-card-section">
+            <div class="review-portrait-box">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop" alt="Kristen Stewart - Verified Customer">
+            </div>
+            <div class="review-text-box">
+                <p class="review-quote">Hands down, the best burger I've ever had! Perfectly grilled and bursting with flavor.</p>
+                <div class="review-author-footer">
+                    <span class="author-name">— Kristen Stewart</span>
+                    <div class="slider-counter">1<span>/5</span></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="closing-footer-container">
+            <div class="footer-showcase-row">
+                <h2 class="footer-cta-message">Chased by<br>flavor, backed<br>by obsession.</h2>
+                
+                <div class="footer-burst-image-box">
+                    <img src="https://pngimg.com/d/burger_PNG93910.png" alt="Oversized Signature Burger Finale">
+                </div>
+            </div>
+
+            <div class="footer-yellow-ribbon">
+                <div class="ribbon-top-row">
+                    <a href="menu.html" class="pill-btn">☰ Menu</a>
+                    <a href="menu.html" class="pill-btn">📝 Order Now</a>
+                </div>
+
+                <div class="ribbon-bottom-row">
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank">Instagram</a>
+                        <a href="https://facebook.com" target="_blank">Facebook</a>
+                        <a href="https://youtube.com" target="_blank">Youtube</a>
+                    </div>
+                    <div class="footer-copyright">©Flip Burger. All rights reserved.</div>
+                </div>
+            </div>
+        </footer>
     </div>
 
 </body>
