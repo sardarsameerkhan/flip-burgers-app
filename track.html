@@ -3,105 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Burger - Track Your Order</title>
+    <title>FLIP BURGER | Track Order</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #fcf8f2; color: #333; }
-        header { background-color: #e63946; color: white; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
-        h2 { color: #1d3557; margin-bottom: 20px; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 30px; }
-        input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        .btn { padding: 12px 24px; background-color: #e63946; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; }
-        .btn:hover { background-color: #c1121f; }
-        .status-card { display: none; background-color: #f8f9fa; border: 2px solid #1d3557; border-radius: 8px; padding: 20px; text-align: left; margin-top: 20px; }
-        .status-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .badge { background-color: #f1a545; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
-        .item-row { display: flex; justify-content: space-between; margin-bottom: 8px; color: #555; }
+        /* Noir Minimalist System */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #111111;
+            --surface-card: #161616;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* Page Reveal Transitions */
+        .fade-in {
+            animation: fadeInPage 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation Links Header */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-size: 20px; font-weight: 900; letter-spacing: 2px; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+        /* Centered Workspace Container */
+        .search-container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
+
+        /* Search Interface Box */
+        .lookup-box {
+            display: flex;
+            border: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            padding: 5px;
+            transition: border-color 0.3s ease;
+        }
+        .lookup-box:focus-within { border-color: #666666; }
+
+        .lookup-box input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            padding: 15px;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+        .lookup-box input:focus { outline: none; }
+
+        .track-btn {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            padding: 0 30px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s ease;
+        }
+        .track-btn:hover { background-color: #dddddd; }
+
+        /* Tracking Result Panel card */
+        .receipt-card {
+            display: none;
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            margin-top: 40px;
+            padding: 35px;
+            text-align: left;
+            animation: fadeInPage 0.5s ease-out;
+        }
+
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .order-tag { font-size: 20px; font-weight: 800; }
+        
+        /* Modern Status Badge styling */
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--text-main);
+            padding: 6px 14px;
+            background: transparent;
+        }
+
+        .meta-line { font-size: 14px; color: var(--text-muted); margin: 8px 0; }
+        .meta-line strong { color: var(--text-main); }
+
+        .items-breakdown { margin-top: 25px; border-top: 1px dashed var(--border-color); padding-top: 20px; }
+        .item-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
     </style>
 </head>
-<body>
+<body class="fade-in">
 
-<header>🍔 FLIP BURGER - ORDER TRACKING</header>
-
-<div class="container">
-    <h2>Track Your Live Order</h2>
-    <p>Enter the Order ID you received during checkout to see your burger's current status.</p>
-    
-    <div class="search-box">
-        <input type="number" id="orderIdInput" placeholder="Enter your 4-digit Order ID (e.g., 1001)">
-        <button class="btn" onclick="trackOrder()">Track</button>
-    </div>
-
-    <div class="status-card" id="statusCard">
-        <div class="status-header">
-            <h3>Order #<span id="displayOrderId">0000</span></h3>
-            <span class="badge" id="orderStatus">Pending</span>
+    <nav>
+        <div class="logo">FLIP BURGER.</div>
+        <div class="nav-links">
+            <a href="home.html">HOME</a>
+            <a href="menu.html">ORDER MENU</a>
+            <a href="track.html" class="active">TRACK ORDER</a>
         </div>
-        <p><strong>Customer:</strong> <span id="customerName">---</span></p>
-        <p><strong>Location/Table:</strong> <span id="customerLocation">---</span></p>
-        <hr style="border: 0; border-top: 1px solid #eee;">
-        <h4>Items Ordered:</h4>
-        <div id="itemsContainer"></div>
-        <hr style="border: 0; border-top: 1px solid #eee;">
-        <h3 style="text-align: right; color: #e63946;">Total Bill: Rs. <span id="totalBill">0</span></h3>
-    </div>
-</div>
-<script>
-    const BACKEND_URL = "http://127.0.0.1:8000";
+    </nav>
 
-    async function trackOrder() {
-        const orderId = document.getElementById('orderIdInput').value;
-        const card = document.getElementById('statusCard');
+    <div class="search-container">
+        <h2>LIVE TRACKING</h2>
+        <div class="subtitle">Enter your 4-digit system invoice code to look inside our SQLite kitchen queue.</div>
 
-        if (!orderId) {
-            alert("Please type in an Order ID first!");
-            return;
-        }
+        <div class="lookup-box">
+            <input type="number" id="trackingIdInput" placeholder="e.g., 1001">
+            <button class="track-btn">TRACE</button>
+        </div>
 
-        try {
-            // Call Route D from our Python backend (/track/{order_id})
-            const response = await fetch(`${BACKEND_URL}/track/${orderId}`);
+        <div class="receipt-card" id="trackingResultPanel">
+            <div class="receipt-header">
+                <span class="order-tag">INVOICE #<span id="labelOrderId">0000</span></span>
+                <span class="status-badge" id="labelStatus">PENDING</span>
+            </div>
             
-            if (response.status === 404) {
-                alert("Order ID not found. Please double-check your number.");
-                card.style.display = "none";
-                return;
-            }
+            <div class="meta-line"><strong>Customer Profile:</strong> <span id="labelName">---</span></div>
+            <div class="meta-line"><strong>Delivery / Location:</strong> <span id="labelLocation">---</span></div>
+            
+            <div class="items-breakdown">
+                <h4 style="margin: 0 0 15px 0; font-size: 12px; letter-spacing: 1px; color:var(--text-muted);">PREPARATION DETAILS</h4>
+                <div id="trackingItemsContainer"></div>
+            </div>
 
-            const order = await response.json();
+            <hr style="border:0; border-top:1px solid var(--border-color); margin:25px 0;">
+            <div style="display:flex; justify-content:between; font-weight:800; font-size:18px;">
+                <span style="flex-grow:1;">TOTAL CHARGED:</span>
+                <span style="color:var(--text-main);">Rs. <span id="labelTotal">0</span></span>
+            </div>
+        </div>
+    </div>
 
-            // Populate text onto the screen
-            document.getElementById('displayOrderId').innerText = order.order_id;
-            document.getElementById('orderStatus').innerText = order.status;
-            document.getElementById('customerName').innerText = order.customer_name;
-            document.getElementById('customerLocation').innerText = order.address_or_table;
-            document.getElementById('totalBill').innerText = order.total_bill;
-
-            // Change badge colors depending on status vibes
-            const badge = document.getElementById('orderStatus');
-            if (order.status === "Pending") badge.style.backgroundColor = "#f1a545";
-            if (order.status === "Preparing") badge.style.backgroundColor = "#007bff";
-            if (order.status === "Completed") badge.style.backgroundColor = "#28a745";
-
-            // Render items list inside the loop
-            const itemsContainer = document.getElementById('itemsContainer');
-            itemsContainer.innerHTML = '';
-            order.items.forEach(item => {
-                itemsContainer.innerHTML += `
-                    <div class="item-row">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>Rs. ${item.price * item.quantity}</span>
-                    </div>
-                `;
-            });
-
-            // Make card visible
-            card.style.display = "block";
-
-        } catch (error) {
-            alert("Could not connect to the backend server.");
-        }
-    }
-</script>
 </body>
 </html>
