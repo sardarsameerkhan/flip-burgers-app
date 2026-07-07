@@ -31,7 +31,7 @@
 <div class="container">
     <div class="menu-section">
         <h2>Our Menu</h2>
-        <div id="menuContainer">Menu items will render here...</div>
+        <div id="menuContainer">Loading yummy menu items...</div>
     </div>
 
     <div class="cart-section">
@@ -53,10 +53,128 @@
             <input type="text" id="custAddress" placeholder="e.g., Table 2 or Satellite Town">
         </div>
 
-        <button class="checkout-btn">Place Order</button>
+        <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
         <div id="orderSuccess"></div>
     </div>
 </div>
+
+<script>
+    const BACKEND_URL = "http://127.0.0.1:8000";
+    let cart = [];
+    let menuData = [];
+
+    // 1. Fetch live menu from Python API
+    async function fetchMenu() {
+        try {
+            const response = await fetch(`${BACKEND_URL}/menu`);
+            menuData = await response.json();
+            displayMenu(menuData);
+        } catch (error) {
+            document.getElementById('menuContainer').innerText = "Failed to connect to backend. Is uvicorn running?";
+        }
+    }
+
+    // 2. Display the items on the screen dynamically
+    function displayMenu(items) {
+        const container = document.getElementById('menuContainer');
+        container.innerHTML = '';
+        items.forEach(item => {
+            container.innerHTML += `
+                <div class="menu-item">
+                    <div class="menu-details">
+                        <h3>${item.name}</h3>
+                        <p>Category: ${item.category}</p>
+                        <strong>Rs. ${item.price}</strong>
+                    </div>
+                    <button class="btn" onclick="addToCart(${item.id})">Add to Cart</button>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Add selection to cart array
+    function addToCart(itemId) {
+        const item = menuData.find(m => m.id === itemId);
+        const existing = cart.find(c => c.menu_id === itemId);
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ menu_id: itemId, name: item.name, price: item.price, quantity: 1 });
+        }
+        updateCartUI();
+    }
+
+    // 4. Update the Cart layout visually
+    function updateCartUI() {
+        const container = document.getElementById('cartItems');
+        const totalSpan = document.getElementById('cartTotal');
+        
+        if (cart.length === 0) {
+            container.innerHTML = "Your cart is empty.";
+            totalSpan.innerText = "0";
+            return;
+        }
+
+        container.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+            container.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name} x${item.quantity}</span>
+                    <span>Rs. ${item.price * item.quantity}</span>
+                </div>
+            `;
+        });
+        totalSpan.innerText = total;
+    }
+
+    // 5. Send order structure over payload to Python FastAPI
+    async function placeOrder() {
+        const name = document.getElementById('custName').value;
+        const phone = document.getElementById('custPhone').value;
+        const address = document.getElementById('custAddress').value;
+
+        if (cart.length === 0 || !name || !phone || !address) {
+            alert("Please fill out your details and add items to the cart!");
+            return;
+        }
+
+        const payload = {
+            customer_name: name,
+            phone_number: phone,
+            address_or_table: address,
+            items: cart.map(item => ({ menu_id: item.menu_id, quantity: item.quantity }))
+        };
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/orders`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+            
+            const successBox = document.getElementById('orderSuccess');
+            successBox.style.display = "block";
+            successBox.innerHTML = `Order Placed Successfully!<br>Your Order ID is: <span style="color:#e63946;">${result.order_id}</span><br><small>Save this ID to track your burger!</small>`;
+
+            // Clear form and cart data locally
+            cart = [];
+            updateCartUI();
+            document.getElementById('custName').value = '';
+            document.getElementById('custPhone').value = '';
+            document.getElementById('custAddress').value = '';
+        } catch (err) {
+            alert("Error sending order to backend server.");
+        }
+    }
+
+    // Run automatically when page displays
+    fetchMenu();
+</script>
 
 </body>
 </html>
