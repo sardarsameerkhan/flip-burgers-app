@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg-cream: #FDF2DC;       
-            --brand-brown: #4A1A02;     
+            --brand-brown: #541E06;     
             --accent-yellow: #FFC72C;   
             --font-bubble: 'Fredoka', sans-serif;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -27,26 +27,26 @@
             background-color: var(--bg-cream);
             color: var(--brand-brown);
             font-family: var(--font-sans);
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 60px;
         }
 
-        .page-reveal {
-            height: 100%;
+        /* Hero Container adjustments to allow natural page scrolling down to the card */
+        .page-container {
+            width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Adjusted Navigation to push elements tightly to the top and sides */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px; /* Reduced padding to move items higher up and further right/left */
+            padding: 40px 60px 20px 60px; 
             width: 100%;
-            max-width: 100%;
+            max-width: 1600px;
         }
 
         .brand-logo-container {
@@ -54,7 +54,7 @@
             align-items: center;
             gap: 12px;
             font-family: var(--font-bubble);
-            font-size: 34px;
+            font-size: 36px;
             font-weight: 900;
             color: var(--brand-brown);
             text-decoration: none;
@@ -69,11 +69,11 @@
         }
         .burger-icon span {
             display: block;
-            height: 4.5px;
+            height: 5px;
             background-color: var(--brand-brown);
             border-radius: 3px;
         }
-        .burger-icon span:first-child { border-radius: 12px 12px 2px 2px; height: 7px; }
+        .burger-icon span:first-child { border-radius: 12px 12px 2px 2px; height: 8px; }
         .burger-icon span:last-child { border-radius: 2px 2px 12px 12px; height: 6px; }
 
         .nav-actions {
@@ -85,14 +85,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 24px;
+            padding: 12px 26px;
             border: 2px solid var(--brand-brown);
             border-radius: 30px;
             background: transparent;
             color: var(--brand-brown);
             font-family: var(--font-sans);
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
             text-decoration: none;
             transition: all 0.2s ease;
         }
@@ -101,22 +101,20 @@
             color: var(--bg-cream);
         }
 
-        /* Hero Container Area */
         .hero-view {
             position: relative;
-            flex-grow: 1;
+            width: 100%;
+            max-width: 1600px;
+            height: 75vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            padding-bottom: 40px;
         }
 
-        /* Thickened, massive, tightly tracking text matching the Dribbble sample exactly */
         .colossal-bg-text {
             font-family: var(--font-bubble);
             font-weight: 900;
-            font-size: clamp(100px, 15vw, 240px);
+            font-size: clamp(120px, 16vw, 240px);
             line-height: 0.78;
             text-align: center;
             text-transform: uppercase;
@@ -126,49 +124,85 @@
             z-index: 1;
         }
 
-        /* Bulletproof Central Asset Graphic - Zero External Hotlinks */
         .burger-hero-image-frame {
             position: absolute;
-            top: 50%;
+            top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 5;
             width: 100%;
-            max-width: 460px;
+            max-width: 520px;
             display: flex;
             justify-content: center;
             align-items: center;
             pointer-events: none;
         }
 
-        /* Custom high-contrast layered SVG vector asset that will never break */
-        .vector-burger-shield {
+        .burger-hero-image-frame img {
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 20px 35px rgba(84,30,6,0.3));
-            animation: smoothFloat 4s ease-in-out infinite;
+            object-fit: contain;
+            filter: drop-shadow(0 25px 35px rgba(84,30,6,0.3));
         }
 
-        @keyframes smoothFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(1deg); }
-        }
-
-        .bottom-shelf-decorator {
-            width: 92%;
-            max-width: 1700px;
-            height: 60px;
+        /* --- NEW FEATURED HISTORY BLOCK SECTION --- */
+        .history-card-section {
+            width: 90%;
+            max-width: 1400px;
             background-color: var(--accent-yellow);
-            border-radius: 20px 20px 0 0;
-            margin: 0 auto;
-            border: 2px solid var(--brand-brown);
-            border-bottom: none;
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            margin: 40px auto 20px auto;
+            padding: 60px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .history-image-box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .history-image-box img {
+            width: 115%; /* Slight overflow to match the large presence of the reference picture */
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(84,30,6,0.25));
+        }
+
+        .history-content-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .history-title {
+            font-family: var(--font-bubble);
+            font-size: clamp(48px, 5.5vw, 76px);
+            font-weight: 900;
+            line-height: 0.95;
+            color: var(--brand-brown);
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .history-tagline {
+            font-size: clamp(18px, 2vw, 24px);
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--brand-brown);
+            opacity: 0.95;
+            max-width: 540px;
         }
     </style>
 </head>
 <body>
 
-    <div class="page-reveal">
+    <div class="page-container">
         <nav>
             <a href="home.html" class="brand-logo-container">
                 <div class="burger-icon">
@@ -192,27 +226,20 @@
             </h1>
 
             <div class="burger-hero-image-frame">
-                <svg class="vector-burger-shield" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M70 240C70 130 150 90 250 90C350 90 430 130 430 240H70Z" fill="#E28743" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
-                    <path d="M140 140C145 140 148 136 146 132C142 122 120 126 122 136C122 139 126 140 140 140Z" fill="#FFF3DD"/>
-                    <path d="M220 125C225 125 228 121 226 117C222 107 200 111 202 121C202 124 206 125 220 125Z" fill="#FFF3DD"/>
-                    <path d="M320 135C325 135 328 131 326 127C322 117 300 121 302 131C302 134 306 135 320 135Z" fill="#FFF3DD"/>
-                    <path d="M380 175C385 175 388 171 386 167C382 157 360 161 362 171C362 174 366 175 380 175Z" fill="#FFF3DD"/>
-                    
-                    <path d="M50 240C40 240 35 255 45 262C55 270 70 265 75 255C80 265 95 270 105 262C115 255 120 240 130 240C140 240 145 255 155 262C165 270 180 265 185 255C190 265 205 270 215 262C225 255 230 240 240 240C250 240 255 255 265 262C275 270 290 265 295 255C300 265 315 270 325 262C335 255 340 240 350 240C360 240 365 255 375 262C385 270 400 265 405 255C410 265 425 270 435 262C445 255 440 240 430 240H50Z" fill="#6EA141" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
-                    
-                    <rect x="75" y="275" width="350" height="45" rx="20" fill="#6B3E26" stroke="#4A1A02" stroke-width="12"/>
-                    <rect x="75" y="345" width="350" height="45" rx="20" fill="#54311E" stroke="#4A1A02" stroke-width="12"/>
-                    
-                    <path d="M70 300H430L410 335C405 345 390 345 385 335L370 315L345 350C335 365 310 365 300 350L275 315L245 360C235 375 205 375 195 360L170 315L145 345C135 355 120 355 110 345L85 315L70 300Z" fill="#FFC72C" stroke="#4A1A02" stroke-width="11" stroke-linejoin="round"/>
-                    <path d="M85 365H415L400 390L360 375L330 400C320 410 300 410 292 395L270 375L230 405C220 412 205 412 195 400L170 375L130 395L85 365Z" fill="#E6A100" stroke="#4A1A02" stroke-width="10" stroke-linejoin="round"/>
-                    
-                    <path d="M80 400H420V420C420 450 380 470 250 470C120 470 80 450 80 420V400Z" fill="#D0742F" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
-                </svg>
+                <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Photo.png" alt="Flip Burger Stack centerpiece">
             </div>
         </div>
 
-        <div class="bottom-shelf-decorator"></div>
+        <section class="history-card-section">
+            <div class="history-image-box">
+                <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Transparent-Image.png" alt="Featured Fresh Burger Selection Element">
+            </div>
+            
+            <div class="history-content-box">
+                <h2 class="history-title">Flavor<br>That Makes<br>History!</h2>
+                <p class="history-tagline">Every bite is bold, smoky, and unforgettable.</p>
+            </div>
+        </section>
     </div>
 
 </body>
