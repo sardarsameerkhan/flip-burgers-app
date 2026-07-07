@@ -216,6 +216,22 @@
             color: var(--brand-brown);
             max-width: 480px;
         }
+        /* Fluid scaling mechanics for responsive mobile devices */
+        @media (max-width: 1024px) {
+            .history-card-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 60px 40px;
+            }
+            .history-image-box img {
+                width: 100%;
+                margin-left: 0;
+                max-width: 450px;
+            }
+            .history-content-box {
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
