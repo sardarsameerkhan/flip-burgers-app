@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Burger | Authentication</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-cream: #FDF2DC;       
+            --brand-brown: #541E06;     
+            --accent-yellow: #FFC72C;   
+            --font-bubble: 'Fredoka', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- AUTH BOX WINDOW --- */
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            background-color: #FAF4E8;
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 40px rgba(84,30,6,0.05);
+            text-align: center;
+        }
+
+        .brand-logo {
+            font-family: var(--font-bubble);
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--brand-brown);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .auth-title {
+            font-family: var(--font-bubble);
+            font-size: 28px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: rgba(84,30,6,0.6);
+            margin-bottom: 35px;
+        }
+
+        /* --- STYLED INTERACTIVE FORM --- */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(84,30,6,0.7);
+        }
+
+        .form-group input {
+            background-color: #FFFDF9;
+            border: 2px solid rgba(84,30,6,0.15);
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            color: var(--brand-brown);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--brand-brown);
+        }
+
+        .auth-submit-btn {
+            background-color: var(--brand-brown);
+            color: var(--bg-cream);
+            border: none;
+            border-radius: 30px;
+            padding: 16px;
+            font-family: var(--font-bubble);
+            font-size: 18px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .auth-submit-btn:hover {
+            background-color: #381303;
+        }
+
+        /* --- SWITCH TOGGLE BUTTONS --- */
+        .toggle-note {
+            margin-top: 25px;
+            font-size: 14px;
+            color: rgba(84,30,6,0.6);
+        }
+
+        .toggle-link {
+            color: var(--brand-brown);
+            font-weight: 800;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Helper state display */
+        .admin-hint {
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(84,30,6,0.4);
+            border-top: 1px dashed rgba(84,30,6,0.15);
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <a href="home.html" class="brand-logo">Flip Burger</a>
+        
+        <h2 class="auth-title" id="authTitle">Welcome Back</h2>
+        <p class="auth-subtitle" id="authSubtitle">Log in to your account to order delicious smashed items.</p>
+
+        <form class="auth-form" id="authForm" onsubmit="handleAuthSubmit(event)">
+            
+            <div class="form-group" id="nameFieldGroup" style="display: none;">
+                <label for="user-name">Full Name</label>
+                <input type="text" id="user-name" placeholder="e.g. Alyson Hannigan">
+            </div>
+
+            <div class="form-group">
+                <label for="user-email">Email Address</label>
+                <input type="email" id="user-email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="user-password">Password</label>
+                <input type="password" id="user-password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="auth-submit-btn" id="submitBtn">Sign In ➔</button>
+        </form>
+
+        <p class="toggle-note" id="toggleWrapper">
+            Don't have an account? <span class="toggle-link" onclick="switchMode('signup')">Sign Up</span>
+        </p>
+
+        <p class="admin-hint">
+            💡 Kitchen Admin Login: Use email <strong>admin@flip.com</strong> & password <strong>admin123</strong>
+        </p>
+    </div>
+
+    <script>
+        let currentMode = 'login'; // Modes can toggle between 'login' and 'signup'
+
+        function switchMode(targetMode) {
+            currentMode = targetMode;
+            const nameGroup = document.getElementById('nameFieldGroup');
+            const title = document.getElementById('authTitle');
+            const subtitle = document.getElementById('authSubtitle');
+            const submitBtn = document.getElementById('submitBtn');
+            const toggleWrapper = document.getElementById('toggleWrapper');
+
+            if (targetMode === 'signup') {
+                nameGroup.style.display = 'flex';
+                document.getElementById('user-name').setAttribute('required', 'true');
+                title.innerText = "Create Account";
+                subtitle.innerText = "Join the Flip club and collect points on every bite.";
+                submitBtn.innerText = "Register Account 🎉";
+                toggleWrapper.innerHTML = `Already have an account? <span class="toggle-link" onclick="switchMode('login')">Sign In</span>`;
+            } else {
+                nameGroup.style.display = 'none';
+                document.getElementById('user-name').removeAttribute('required');
+                title.innerText = "Welcome Back";
+                subtitle.innerText = "Log in to your account to order delicious smashed items.";
+                submitBtn.innerText = "Sign In ➔";
+                toggleWrapper.innerHTML = `Don't have an account? <span class="toggle-link" onclick="switchMode('signup')">Sign Up</span>`;
+            }
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('user-email').value.trim();
+            const pass = document.getElementById('user-password').value;
+
+            // 1. ROLE INTERCEPTOR GATEWAY: Check for Admin Identity credentials
+            if (email === 'admin@flip.com' && pass === 'admin123') {
+                alert("Access Granted: Welcome back to the kitchen master command center!");
+                localStorage.setItem('flip_user_role', 'admin');
+                window.location.href = "admin.html";
+                return;
+            }
+
+            // 2. Regular Customer Path
+            if (currentMode === 'signup') {
+                const name = document.getElementById('user-name').value;
+                alert(`Account registered successfully for ${name}! Welcome aboard.`);
+            }
+
+            localStorage.setItem('flip_user_role', 'customer');
+            alert("Logged in successfully! Redirecting you straight to our menu.");
+            window.location.href = "menu.html";
+        }
+    </script>
+</body>
+</html>
