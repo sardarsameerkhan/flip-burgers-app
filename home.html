@@ -376,13 +376,14 @@
             position: relative;
         }
 
-        .footer-burst-image-box img {
-            width: 135%;
-            max-width: 780px;
+.footer-burst-image-box img {
+            width: 140%;
+            max-width: 820px;
             height: auto;
             object-fit: contain;
-            margin-bottom: -40px; /* Bleeds deep down through the footer ribbon */
-            filter: drop-shadow(0 20px 40px rgba(84,30,6,0.35));
+            margin-bottom: -65px; /* Deep overlap transition through the bottom ribbon boundary */
+            transform: scale(1.1) cubic-bezier(0.25, 1, 0.5, 1);
+            filter: drop-shadow(0 25px 45px rgba(84,30,6,0.35));
         }
 
         .footer-yellow-ribbon {
