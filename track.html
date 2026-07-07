@@ -400,21 +400,50 @@
         </main>
     </div>
 
-    <script>
-        // Generate a random high-fidelity Order Token on display load
-        document.getElementById('lblOrderId').innerText = '#FLIP-' + Math.floor(10000 + Math.random() * 90000);
+<script>
+        function trackLiveOrder() {
+            // Fetch order details from localStorage
+            const activeOrder = JSON.parse(localStorage.getItem('active_flip_order'));
 
-        // Simulation engine cycles timeline state nodes every 7 seconds for presentation previewing
-        let currentStatus = 2; 
-        const progressBar = document.getElementById('pipelineProgressLine');
-
-        function advanceSimulation() {
-            currentStatus++;
-            if (currentStatus > 4) {
-                currentStatus = 1; // Reset loop cycles
+            // Fallback UI state if someone navigates here directly without checking out
+            if (!activeOrder) {
+                document.getElementById('lblOrderId').innerText = "NO ACTIVE ORDER";
+                document.getElementById('lblAddress').innerText = "No delivery pending.";
+                document.getElementById('lblCustomer').innerText = "Please place an order from the cart.";
+                document.getElementById('pipelineProgressLine').style.height = '0%';
+                
+                // Dim all steps
+                for (let i = 1; i <= 4; i++) {
+                    document.getElementById('step' + i).classList.remove('active', 'completed');
+                }
+                return;
             }
 
-            // Reset pipeline nodes classes
+            // 1. Map actual captured customer fields into left display panel
+            document.getElementById('lblOrderId').innerText = activeOrder.orderId;
+            document.getElementById('lblAddress').innerText = activeOrder.customerAddress;
+            document.getElementById('lblCustomer').innerText = `${activeOrder.customerName} (${activeOrder.customerPhone})`;
+
+            // 2. Compute status dynamically based on elapsed time
+            const currentTime = new Date().getTime();
+            const timeElapsedInSeconds = Math.floor((currentTime - activeOrder.orderTime) / 1000);
+            
+            let currentStatus = 1; // 1 = Confirmed, 2 = Kitchen, 3 = Rider, 4 = Arrived
+            
+            // Time logic triggers (Adjust these numbers to speed up or slow down testing)
+            if (timeElapsedInSeconds >= 60) {  // After 1 minute
+                currentStatus = 2;
+            }
+            if (timeElapsedInSeconds >= 180) { // After 3 minutes
+                currentStatus = 3;
+            }
+            if (timeElapsedInSeconds >= 300) { // After 5 minutes
+                currentStatus = 4;
+            }
+
+            // 3. Render tracking pipeline graphical nodes
+            const progressBar = document.getElementById('pipelineProgressLine');
+            
             for (let i = 1; i <= 4; i++) {
                 let stepElem = document.getElementById('step' + i);
                 stepElem.classList.remove('active', 'completed');
@@ -424,7 +453,7 @@
                     stepElem.querySelector('.pipeline-node').innerText = "✓";
                 } else if (i === currentStatus) {
                     stepElem.classList.add('active');
-                    // Retain specific emojis for status identity
+                    if(i===1) stepElem.querySelector('.pipeline-node').innerText = "✓";
                     if(i===2) stepElem.querySelector('.pipeline-node').innerText = "🔥";
                     if(i===3) stepElem.querySelector('.pipeline-node').innerText = "🚲";
                     if(i===4) stepElem.querySelector('.pipeline-node').innerText = "🍔";
@@ -433,13 +462,17 @@
                 }
             }
 
-            // Map corresponding heights to the background overlay element line tracking
+            // Smooth linear progress bar scale updates
             let progressHeights = { 1: 0, 2: 33.33, 3: 66.66, 4: 100 };
             progressBar.style.height = progressHeights[currentStatus] + '%';
         }
 
-        // Cycle status tracks automatically every 7 seconds
-        setInterval(advanceSimulation, 7000);
+        // Run checking calculation immediately on page load
+        window.onload = function() {
+            trackLiveOrder();
+            // Keep refreshing calculation checking status variables every 3 seconds live
+            setInterval(trackLiveOrder, 3000);
+        };
     </script>
 </body>
 </html>

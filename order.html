@@ -316,32 +316,35 @@
                 </div>
             </div>
 
-            <div class="order-form-panel">
+           <div class="order-form-panel">
                 <div>
                     <h3 class="form-heading">Delivery Details</h3>
-                    <form class="checkout-form" id="checkoutForm">
+                    <form class="checkout-form" id="checkoutForm" onsubmit="handleCheckout(event)">
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="e.g. Kristen Stewart" required>
+                            <label for="cust-name">Full Name</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Kristen Stewart" required>
                         </div>
+
                         <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="tel" placeholder="e.g. +92 300 1234567" required>
+                            <label for="cust-phone">Phone Number</label>
+                            <input type="tel" id="cust-phone" placeholder="e.g. +92 300 1234567" required>
                         </div>
+
                         <div class="form-group">
-                            <label>Delivery Address</label>
-                            <textarea rows="3" placeholder="Street address, apartment, city corner" required></textarea>
+                            <label for="cust-address">Delivery Address</label>
+                            <textarea id="cust-address" rows="3" placeholder="Street address, apartment, city corner" required></textarea>
                         </div>
+                        
+                        <button type="submit" class="submit-order-btn">Confirm Order 🚀</button>
                     </form>
                 </div>
-
-                <a href="track.html" class="submit-order-btn" onclick="clearCart()">Confirm Order 🚀</a>
             </div>
         </main>
     </div>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('flip_burger_cart')) || [];
+        let grandTotal = 0;
 
         function renderBasket() {
             const listContainer = document.getElementById('basketItemsList');
@@ -377,7 +380,7 @@
             });
 
             let delivery = 120;
-            let grandTotal = subtotal + delivery;
+            grandTotal = subtotal + delivery;
 
             document.getElementById('subtotalVal').innerText = subtotal;
             document.getElementById('deliveryVal').innerText = delivery;
@@ -393,8 +396,31 @@
             renderBasket();
         }
 
-        function clearCart() {
+        // CAPTURE AND SAVE ORDER DATA TO LOCALSTORAGE
+        function handleCheckout(event) {
+            event.preventDefault(); // Prevents page reload
+            
+            if (cart.length === 0) {
+                alert("Your cart is empty! Add items from the menu first.");
+                return;
+            }
+
+            // Capture data details
+            const orderDetails = {
+                customerName: document.getElementById('cust-name').value,
+                customerPhone: document.getElementById('cust-phone').value,
+                customerAddress: document.getElementById('cust-address').value,
+                totalBill: grandTotal,
+                orderTime: new Date().getTime(), // Timestamp of placement
+                orderId: '#FLIP-' + Math.floor(10000 + Math.random() * 90000)
+            };
+
+            // Save order data and wipe the active cart clear
+            localStorage.setItem('active_flip_order', JSON.stringify(orderDetails));
             localStorage.removeItem('flip_burger_cart');
+
+            // Send user to tracking portal
+            window.location.href = "track.html";
         }
 
         window.onload = renderBasket;
