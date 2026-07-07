@@ -233,6 +233,128 @@
         </div>
 
     </div>
+<script>
+    const API_URL = "http://127.0.0.1:8000";
+    let internalCart = [];
+    let completeMenu = [];
 
+    // 1. Fetch products from SQLite integrated API layer
+    async function loadDynamicMenu() {
+        try {
+            const res = await fetch(`${API_URL}/menu`);
+            completeMenu = await res.json();
+            renderVisualMenu(completeMenu);
+        } catch (err) {
+            document.getElementById('menuTarget').innerHTML = '<p style="color:red;">Engine connection offline.</p>';
+        }
+    }
+
+    // 2. Render cards onto web display grid
+    function renderVisualMenu(items) {
+        const target = document.getElementById('menuTarget');
+        target.innerHTML = '';
+        items.forEach(product => {
+            target.innerHTML += `
+                <div class="food-card">
+                    <div>
+                        <div class="category">${product.category}</div>
+                        <h3>${product.name}</h3>
+                    </div>
+                    <div>
+                        <div class="price">Rs. ${product.price}</div>
+                        <button class="add-btn" onclick="pushToBag(${product.id})">ADD TO BAG</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Push items into local application runtime array
+    function pushToBag(prodId) {
+        const foundItem = completeMenu.find(p => p.id === prodId);
+        const insideCart = internalCart.find(c => c.menu_id === prodId);
+
+        if (insideCart) {
+            insideCart.quantity += 1;
+        } else {
+            internalCart.push({ menu_id: prodId, name: foundItem.name, price: foundItem.price, quantity: 1 });
+        }
+        refreshCartDisplay();
+    }
+
+    // 4. Repaint the Cart list UI elements
+    function refreshCartDisplay() {
+        const list = document.getElementById('cartItemsList');
+        const summary = document.getElementById('cartTotalSum');
+        
+        if (internalCart.length === 0) {
+            list.innerHTML = 'Bag is empty.';
+            summary.innerText = '0';
+            return;
+        }
+
+        list.innerHTML = '';
+        let totalBillAccumulator = 0;
+        
+        internalCart.forEach(item => {
+            totalBillAccumulator += item.price * item.quantity;
+            list.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>Rs. ${item.price * item.quantity}</span>
+                </div>
+            `;
+        });
+        summary.innerText = totalBillAccumulator;
+    }
+
+    // 5. Fire database-backed post transaction over the pipeline
+    async function executeCheckout() {
+        const nameVal = document.getElementById('orderName').value;
+        const phoneVal = document.getElementById('orderPhone').value;
+        const addrVal = document.getElementById('orderAddress').value;
+
+        if (internalCart.length === 0 || !nameVal || !phoneVal || !addrVal) {
+            alert("Ensure your cart is populated and registration boxes are complete.");
+            return;
+        }
+
+        const payload = {
+            customer_name: nameVal,
+            phone_number: phoneVal,
+            address_or_table: addrVal,
+            items: internalCart.map(i => ({ menu_id: i.menu_id, quantity: i.quantity }))
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/orders`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            
+            const metadata = await response.json();
+            
+            const trackingBox = document.getElementById('successMessage');
+            trackingBox.style.display = "block";
+            trackingBox.innerHTML = `TRANSACTION SUCCESSFUL<br>ORDER ID: <span style="font-size:20px; letter-spacing:1px;">${metadata.order_id}</span><br><small style="color:#666;">Copy ID to trace live status</small>`;
+
+            // Clear states
+            internalCart = [];
+            refreshCartDisplay();
+            document.getElementById('orderName').value = '';
+            document.getElementById('orderPhone').value = '';
+            document.getElementById('orderAddress').value = '';
+        } catch (error) {
+            alert("Error logging connection data transaction.");
+        }
+    }
+
+    // Register active click parameters to checkout trigger
+    document.querySelector('.checkout-submit').setAttribute('onclick', 'executeCheckout()');
+
+    // Run automatically on thread bootstrap
+    loadDynamicMenu();
+</script>
 </body>
 </html>
