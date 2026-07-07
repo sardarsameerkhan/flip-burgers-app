@@ -29,6 +29,7 @@
             font-family: var(--font-sans);
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
         }
 
         .page-container {
@@ -94,6 +95,7 @@
             font-weight: 800;
             text-decoration: none;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         .pill-btn:hover, .pill-btn.active {
             background-color: var(--brand-brown);
@@ -104,11 +106,11 @@
         .menu-main-wrapper {
             width: 90%;
             max-width: 1500px;
-            margin: 40px auto 80px auto;
+            margin: 40px auto 100px auto;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 50px;
-            background-color: #FAF4E8; /* Cleaner layout contrast */
+            background-color: #FAF4E8;
             border: 3px solid var(--brand-brown);
             border-radius: 40px;
             overflow: hidden;
@@ -133,7 +135,6 @@
             align-items: flex-end;
         }
 
-        /* Size Header Trackers */
         .size-indicators {
             display: flex;
             gap: 15px;
@@ -144,7 +145,7 @@
             padding-bottom: 5px;
         }
         .size-indicators span {
-            width: 45px;
+            width: 55px;
             text-align: right;
         }
 
@@ -179,16 +180,29 @@
             gap: 15px;
         }
 
+        /* Clickable price targets */
         .price-box {
-            width: 45px;
+            width: 55px;
             text-align: right;
             font-size: 19px;
             font-weight: 800;
             color: var(--brand-brown);
+            background: rgba(84, 30, 6, 0.05);
+            padding: 2px 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+        
+        .price-box:hover {
+            background-color: var(--brand-brown);
+            color: var(--accent-yellow);
+            transform: scale(1.08);
         }
         
         .price-dash {
-            width: 45px;
+            width: 55px;
             text-align: right;
             font-size: 19px;
             font-weight: 800;
@@ -202,14 +216,19 @@
             max-width: 85%;
         }
 
-        /* Highlight feature for items like sides */
         .highlight-pink-bg {
             background-color: #F7D6D8;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+        .highlight-pink-bg:hover {
+            background-color: var(--brand-brown);
+            color: white;
         }
 
-        /* Checker decoration bottom element */
         .checker-deco-bar {
             width: 100%;
             height: 16px;
@@ -220,17 +239,16 @@
             background-size: 16px 16px;
             background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
             opacity: 0.85;
-            margin-top: 20px;
+            margin-top: 40px;
         }
 
-        /* --- RIGHT COLUMN: COMPLEX SPLIT PANEL --- */
+        /* --- RIGHT COLUMN --- */
         .menu-right-panel {
             display: grid;
             grid-template-rows: 1.1fr 0.9fr;
             border-left: 3px solid var(--brand-brown);
         }
 
-        /* Top Accent Graphic Area (Stacked Fries & Wraps) */
         .right-top-showcase {
             padding: 60px;
             background-color: #FAF4E8;
@@ -239,7 +257,6 @@
             justify-content: center;
         }
 
-        /* Large Capsule Highlight Frame mapping mock specs */
         .capsule-accent-frame {
             border: 4px solid var(--brand-brown);
             border-radius: 60px;
@@ -258,7 +275,6 @@
             text-transform: uppercase;
             color: var(--brand-brown);
             margin-bottom: 25px;
-            letter-spacing: -0.5px;
         }
 
         .capsule-item-row {
@@ -266,10 +282,13 @@
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
         }
-        
-        .capsule-item-row:last-of-type {
-            margin-bottom: 0;
+        .capsule-item-row:hover {
+            background: rgba(84,30,6,0.05);
         }
 
         .capsule-item-text {
@@ -308,15 +327,14 @@
             margin: 35px 0 25px 0;
         }
 
-        /* Dark Accent Bottom Panel (Add-ons & Drinks) */
+        /* DARK PANEL */
         .right-bottom-dark-panel {
-            background-color: #0B0A0A; /* Deep premium contrast block */
+            background-color: #0B0A0A;
             color: #FFFFFF;
             padding: 50px 60px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            position: relative;
         }
 
         .dark-panel-column h3 {
@@ -326,7 +344,6 @@
             text-transform: uppercase;
             color: #FFFFFF;
             margin-bottom: 25px;
-            letter-spacing: 0.5px;
         }
 
         .dark-menu-list {
@@ -341,18 +358,20 @@
             font-size: 15px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color 0.2s;
+        }
+        .dark-item-row:hover {
+            color: var(--accent-yellow);
         }
 
-        .dark-item-name {
-            color: rgba(255, 255, 255, 0.9);
-        }
+        .dark-item-name { color: rgba(255, 255, 255, 0.9); }
+        .dark-item-price { color: #FFFFFF; }
 
-        .dark-item-price {
-            color: #FFFFFF;
-        }
+        .dark-item-row:hover .dark-item-name { color: var(--accent-yellow); }
 
-        /* Sauce string footer overlay line */
         .dark-sauce-footer-bar {
             grid-column: span 2;
             border-top: 1px solid rgba(255,255,255,0.2);
@@ -366,9 +385,7 @@
             align-items: center;
         }
 
-        .dark-sauce-footer-bar span {
-            color: #FFFFFF;
-        }
+        .dark-sauce-footer-bar span { color: #FFFFFF; }
 
         .sauce-badge-box {
             background-color: #FFFFFF;
@@ -377,37 +394,59 @@
             border-radius: 4px;
             font-family: var(--font-bubble);
             font-size: 14px;
+            cursor: pointer;
         }
 
-        /* --- RESPONSIVE CONFIGURATIONS --- */
+        /* --- PERSISTENT FLOATING BASKET ACTION BAR --- */
+        .floating-cart-bar {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--brand-brown);
+            color: var(--bg-cream);
+            padding: 16px 32px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
+            transform: translateY(150px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .floating-cart-bar.visible {
+            transform: translateY(0);
+        }
+
+        .cart-bar-title {
+            font-family: var(--font-bubble);
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cart-bar-badge {
+            background-color: var(--accent-yellow);
+            color: var(--brand-brown);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        /* Responsive */
         @media (max-width: 1150px) {
-            .menu-main-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .menu-right-panel {
-                border-left: none;
-                border-top: 3px solid var(--brand-brown);
-            }
+            .menu-main-wrapper { grid-template-columns: 1fr; }
+            .menu-right-panel { border-left: none; border-top: 3px solid var(--brand-brown); }
         }
-
         @media (max-width: 680px) {
-            .menu-left-panel, .right-top-showcase, .right-bottom-dark-panel {
-                padding: 30px;
-            }
-            .right-bottom-dark-panel {
-                grid-template-columns: 1fr;
-            }
-            .dark-sauce-footer-bar {
-                grid-column: span 1;
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            .menu-section-title {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
+            .menu-left-panel, .right-top-showcase, .right-bottom-dark-panel { padding: 30px; }
+            .right-bottom-dark-panel { grid-template-columns: 1fr; }
+            .dark-sauce-footer-bar { grid-column: span 1; flex-direction: column; gap: 10px; }
+            .menu-section-title { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
@@ -416,17 +455,12 @@
     <div class="page-container">
         <nav>
             <a href="home.html" class="brand-logo-container">
-                <div class="burger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="burger-icon"><span></span><span></span><span></span></div>
                 Flip Burger
             </a>
-            
             <div class="nav-actions">
                 <a href="menu.html" class="pill-btn active">☰ Menu</a>
-                <a href="menu.html" class="pill-btn">📝 Order Now</a>
+                <a href="order.html" class="pill-btn">📝 Order Now</a>
                 <a href="track.html" class="pill-btn">Track Order</a>
             </div>
         </nav>
@@ -440,7 +474,7 @@
                     <div class="size-indicators">
                         <span>Single</span>
                         <span>Double</span>
-                        <span>Tripple</span>
+                        <span>Triple</span>
                     </div>
                 </div>
 
@@ -449,34 +483,24 @@
                         <div class="item-header-line">
                             <h4 class="item-name">The OG Flip</h4>
                             <div class="item-prices-group">
-                                <span class="price-box">690</span>
-                                <span class="price-box">940</span>
-                                <span class="price-box">1340</span>
+                                <span class="price-box" onclick="addToCart('The OG Flip (Single)', 690)">690</span>
+                                <span class="price-box" onclick="addToCart('The OG Flip (Double)', 940)">940</span>
+                                <span class="price-box" onclick="addToCart('The OG Flip (Triple)', 1340)">1340</span>
                             </div>
                         </div>
                         <p class="item-description">Smashed Beef, Cheese Slice, Signature Sauce, Caramelized Onion and Lettuce in a Soft Potato Bun.</p>
                     </div>
+
                     <div class="menu-item-row">
                         <div class="item-header-line">
                             <h4 class="item-name">Right Flip</h4>
                             <div class="item-prices-group">
-                                <span class="price-box">690</span>
-                                <span class="price-box">940</span>
-                                <span class="price-box">1340</span>
+                                <span class="price-box" onclick="addToCart('Right Flip (Single)', 690)">690</span>
+                                <span class="price-box" onclick="addToCart('Right Flip (Double)', 940)">940</span>
+                                <span class="price-box" onclick="addToCart('Right Flip (Triple)', 1340)">1340</span>
                             </div>
                         </div>
                         <p class="item-description">Soft Potato Bun, Smashed Beef, Cheddar Cheese Slice, Fresh Onion, Pickles, Ketchup & Mustard Sauce.</p>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-header-line">
-                            <h4 class="item-name">Chilli Flip</h4>
-                            <div class="item-prices-group">
-                                <span class="price-box">690</span>
-                                <span class="price-box">940</span>
-                                <span class="price-box">1340</span>
-                            </div>
-                        </div>
-                        <p class="item-description">Smashed Beef, Cheese Slice, Flip Spicy Sauce, Lettuce and Pickles Served in Soft Potato Bun.</p>
                     </div>
                 </div>
 
@@ -494,84 +518,21 @@
                         <div class="item-header-line">
                             <h4 class="item-name">Classic Zinger</h4>
                             <div class="item-prices-group">
-                                <span class="price-box">490</span>
+                                <span class="price-box" onclick="addToCart('Classic Zinger (Single)', 490)">490</span>
                                 <span class="price-dash">/</span>
-                                <span class="price-box">790</span>
+                                <span class="price-box" onclick="addToCart('Classic Zinger (Double)', 790)">790</span>
                             </div>
                         </div>
                         <p class="item-description">Crunchy Coated Chicken, Mild Creamy Mayo and Lettuce Served in Seeded Buns.</p>
                     </div>
-                    <div class="menu-item-row">
-                        <div class="item-header-line">
-                            <h4 class="item-name">Fiery Zinger</h4>
-                            <div class="item-prices-group">
-                                <span class="price-box">490</span>
-                                <span class="price-dash">/</span>
-                                <span class="price-box">790</span>
-                            </div>
-                        </div>
-                        <p class="item-description">Crunchy Coated Chicken, Flip Spicy Sauce, Lettuce Served in Seeded Buns.</p>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-header-line">
-                            <h4 class="item-name">Mild Cluck</h4>
-                            <div class="item-prices-group">
-                                <span class="price-box">390</span>
-                                <span class="price-dash">/</span>
-                                <span class="price-box">640</span>
-                            </div>
-                        </div>
-                        <p class="item-description">Chicken Minced Patty, Mild Creamy Mayo and Lettuce Wrapped in Seeded Buns.</p>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-header-line">
-                            <h4 class="item-name">Spicy Cluck</h4>
-                            <div class="item-prices-group">
-                                <span class="price-box">390</span>
-                                <span class="price-dash">/</span>
-                                <span class="price-box">640</span>
-                            </div>
-                        </div>
-                        <p class="item-description">Chicken Minced Patty, Flip Spicy Sauce, Onion and Lettuce Wrapped in Seeded Buns.</p>
-                    </div>
                 </div>
 
-                <div class="menu-section-title">
-                    <span>Sides</span>
-                </div>
-
+                <div class="menu-section-title"><span>Sides</span></div>
                 <div class="menu-items-list" style="margin-bottom: 0;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px 50px;">
-                        <div class="menu-item-row">
-                            <div class="item-header-line">
-                                <h4 class="item-name"><span class="highlight-pink-bg">Curly Fries</span></h4>
-                                <span class="price-box">390</span>
-                            </div>
-                        </div>
-                        <div class="menu-item-row">
-                            <div class="item-header-line">
-                                <h4 class="item-name"><span class="highlight-pink-bg">Chicken Strips</span></h4>
-                                <span class="price-box">790</span>
-                            </div>
-                        </div>
-                        <div class="menu-item-row">
-                            <div class="item-header-line">
-                                <h4 class="item-name"><span class="highlight-pink-bg">Regular Fries</span></h4>
-                                <span class="price-box">190</span>
-                            </div>
-                        </div>
-                        <div class="menu-item-row">
-                            <div class="item-header-line">
-                                <h4 class="item-name"><span class="highlight-pink-bg">Chicken Pop Up's</span></h4>
-                                <span class="price-box">490</span>
-                            </div>
-                        </div>
-                        <div class="menu-item-row">
-                            <div class="item-header-line">
-                                <h4 class="item-name"><span class="highlight-pink-bg">Waffle Fries</span></h4>
-                                <span class="price-box">390</span>
-                            </div>
-                        </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px;">
+                        <div class="item-header-line"><h4 class="item-name"><span class="highlight-pink-bg" onclick="addToCart('Curly Fries', 390)">Curly Fries</span></h4><span class="price-box" onclick="addToCart('Curly Fries', 390)">390</span></div>
+                        <div class="item-header-line"><h4 class="item-name"><span class="highlight-pink-bg" onclick="addToCart('Regular Fries', 190)">Regular Fries</span></h4><span class="price-box" onclick="addToCart('Regular Fries', 190)">190</span></div>
+                        <div class="item-header-line"><h4 class="item-name"><span class="highlight-pink-bg" onclick="addToCart('Chicken Strips', 790)">Chicken Strips</span></h4><span class="price-box" onclick="addToCart('Chicken Strips', 790)">790</span></div>
                     </div>
                 </div>
 
@@ -579,78 +540,95 @@
             </div>
 
             <div class="menu-right-panel">
-                
                 <div class="right-top-showcase">
                     <div class="capsule-accent-frame">
                         <h3 class="capsule-section-title">Stacked Fries</h3>
-                        
-                        <div class="capsule-item-row">
-                            <div class="capsule-item-text">
-                                <span class="capsule-item-name">Crunchy Chicken Fries</span>
-                            </div>
+                        <div class="capsule-item-row" onclick="addToCart('Crunchy Chicken Fries', 790)">
+                            <div class="capsule-item-text"><span class="capsule-item-name">Crunchy Chicken Fries</span></div>
                             <span class="capsule-item-price">790</span>
                         </div>
-                        
-                        <div class="capsule-item-row">
-                            <div class="capsule-item-text">
-                                <span class="capsule-item-name">Smashed Beefy Fries</span>
-                            </div>
+                        <div class="capsule-item-row" onclick="addToCart('Smashed Beefy Fries', 890)">
+                            <div class="capsule-item-text"><span class="capsule-item-name">Smashed Beefy Fries</span></div>
                             <span class="capsule-item-price">890</span>
                         </div>
 
                         <h3 class="capsule-divider-title">Wraps</h3>
-
-                        <div class="capsule-item-row">
-                            <div class="capsule-item-text">
-                                <span class="capsule-item-name">Crispy Paratha</span>
-                                <span class="capsule-item-desc">Crispy Chicken pops, Mild Creamy Mayo and Chilli Garlic Sauce, Lettuce Wrapped in Paratha.</span>
-                            </div>
+                        <div class="capsule-item-row" onclick="addToCart('Crispy Paratha Wrap', 490)">
+                            <div class="capsule-item-text"><span class="capsule-item-name">Crispy Paratha</span></div>
                             <span class="capsule-item-price">490</span>
-                        </div>
-
-                        <div class="capsule-item-row">
-                            <div class="capsule-item-text">
-                                <span class="capsule-item-name">Crunchy Wrap</span>
-                                <span class="capsule-item-desc">Crispy Chicken, Flip Spicy Sauce, Honey Mustard Sauce, Fries and Lettuce Wrapped in Tortilla Bread.</span>
-                            </div>
-                            <span class="capsule-item-price">690</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="right-bottom-dark-panel">
-                    
                     <div class="dark-panel-column">
                         <h3>Add Ons</h3>
                         <div class="dark-menu-list">
-                            <div class="dark-item-row"><span class="dark-item-name">Cheese Slice</span><span class="dark-item-price">70</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Onion Jam</span><span class="dark-item-price">70</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Mushroom</span><span class="dark-item-price">70</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Pickle</span><span class="dark-item-price">40</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Jalapeno</span><span class="dark-item-price">40</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Smashed Beef</span><span class="dark-item-price">350</span></div>
+                            <div class="dark-item-row" onclick="addToCart('Addon: Cheese Slice', 70)"><span class="dark-item-name">Cheese Slice</span><span class="dark-item-price">70</span></div>
+                            <div class="dark-item-row" onclick="addToCart('Addon: Smashed Beef', 350)"><span class="dark-item-name">Smashed Beef</span><span class="dark-item-price">350</span></div>
                         </div>
                     </div>
 
                     <div class="dark-panel-column">
                         <h3>Drinks</h3>
                         <div class="dark-menu-list">
-                            <div class="dark-item-row"><span class="dark-item-name">300 ML</span><span class="dark-item-price">90</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Mint Margarita</span><span class="dark-item-price">250</span></div>
-                            <div class="dark-item-row"><span class="dark-item-name">Lemonade</span><span class="dark-item-price">250</span></div>
+                            <div class="dark-item-row" onclick="addToCart('Drink: 300 ML Soda', 90)"><span class="dark-item-name">300 ML Soda</span><span class="dark-item-price">90</span></div>
+                            <div class="dark-item-row" onclick="addToCart('Drink: Mint Margarita', 250)"><span class="dark-item-name">Mint Margarita</span><span class="dark-item-price">250</span></div>
                         </div>
                     </div>
 
                     <div class="dark-sauce-footer-bar">
-                        <p>Sauces: <span>Signature Sauce | Garlic Sauce | Ranch Sauce | Flip Spicy | Honey Mustard</span></p>
-                        <div class="sauce-badge-box">90</div>
+                        <p>Extra Sauces Dip</p>
+                        <div class="sauce-badge-box" onclick="addToCart('Signature Sauce Dip', 90)">90</div>
                     </div>
                 </div>
-
             </div>
-
         </main>
+
+        <a href="order.html" class="floating-cart-bar" id="floatingCart">
+            <span class="cart-bar-title">View Basket Total: <span id="cartCost">0</span> PKR</span>
+            <div class="cart-bar-badge" id="cartCount">0</div>
+        </a>
     </div>
 
+    <script>
+        let cart = JSON.parse(localStorage.getItem('flip_burger_cart')) || [];
+
+        function addToCart(name, price) {
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ name: name, price: price, qty: 1 });
+            }
+            updateLocalStorage();
+        }
+
+        function updateLocalStorage() {
+            localStorage.setItem('flip_burger_cart', JSON.stringify(cart));
+            renderFloatingBar();
+        }
+
+        function renderFloatingBar() {
+            const bar = document.getElementById('floatingCart');
+            const countElem = document.getElementById('cartCount');
+            const costElem = document.getElementById('cartCost');
+            
+            if (cart.length === 0) {
+                bar.classList.remove('visible');
+                return;
+            }
+
+            let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            let totalCost = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            countElem.innerText = totalQty;
+            costElem.innerText = totalCost;
+            bar.classList.add('visible');
+        }
+
+        // Initialize state on page display load
+        window.onload = renderFloatingBar;
+    </script>
 </body>
 </html>
