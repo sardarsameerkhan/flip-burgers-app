@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Burger - Admin Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #121214; color: #e4e6eb; }
+        header { background-color: #e63946; color: white; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #2f3136; padding-bottom: 15px; }
+        .refresh-btn { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .refresh-btn:hover { background-color: #218838; }
+        .orders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .order-card { background-color: #1e1f22; border-radius: 8px; border: 1px solid #2f3136; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2f3136; padding-bottom: 10px; margin-bottom: 15px; }
+        .order-id { font-size: 18px; font-weight: bold; color: #e63946; }
+        .status-select { padding: 6px; background-color: #2b2d31; color: white; border: 1px solid #4e5058; border-radius: 4px; cursor: pointer; }
+        .order-details p { margin: 5px 0; font-size: 14px; color: #b5bac1; }
+        .items-box { background-color: #2b2d31; padding: 10px; border-radius: 6px; margin-top: 10px; }
+        .item-line { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; color: #ffffff; }
+    </style>
+</head>
+<body>
+
+<header>👑 FLIP BURGER - MANAGER CONTROL PANEL</header>
+
+<div class="container">
+    <div class="dashboard-header">
+        <h2>Live Incoming Orders</h2>
+        <button class="refresh-btn">Refresh Panel</button>
+    </div>
+
+    <div class="orders-grid" id="ordersGrid">
+        <p style="color: #b5bac1;">No orders placed yet. Keep the screen open...</p>
+    </div>
+</div>
+
+</body>
+</html>
