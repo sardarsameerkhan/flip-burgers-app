@@ -3,250 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLIP BURGER | Track Order</title>
+    <title>Flip Burger | Track Order</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Noir Minimalist System */
         :root {
-            --bg-color: #000000;
-            --surface-color: #111111;
-            --surface-card: #161616;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --border-color: #222222;
+            --bg-cream: #FDF2DC;       
+            --brand-brown: #541E06;     
+            --accent-yellow: #FFC72C;   
+            --font-bubble: 'Fredoka', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-cream);
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Page Reveal Transitions */
-        .fade-in {
-            animation: fadeInPage 0.8s ease-out forwards;
+        .page-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Navigation Links Header */
+        /* --- GLOBAL NAVIGATION HEADER --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 50px;
-            border-bottom: 1px solid var(--border-color);
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 40px 60px 20px 60px; 
+            width: 100%;
+            max-width: 1600px;
         }
 
-        .logo { font-size: 20px; font-weight: 900; letter-spacing: 2px; }
-        .nav-links a {
-            color: var(--text-muted);
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-bubble);
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--brand-brown);
             text-decoration: none;
-            margin-left: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
+            letter-spacing: -0.5px;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
 
-        /* Centered Workspace Container */
-        .search-container {
-            max-width: 600px;
-            margin: 60px auto;
-            padding: 0 20px;
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 32px;
+        }
+        .burger-icon span {
+            display: block;
+            height: 5px;
+            background-color: var(--brand-brown);
+            border-radius: 3px;
+        }
+        .burger-icon span:first-child { border-radius: 12px 12px 2px 2px; height: 8px; }
+        .burger-icon span:last-child { border-radius: 2px 2px 12px 12px; height: 6px; }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border: 2px solid var(--brand-brown);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .pill-btn:hover, .pill-btn.active {
+            background-color: var(--brand-brown);
+            color: var(--bg-cream);
+        }
+
+        /* --- TRACKING MAIN WORKSPACE GRID --- */
+        .track-main-wrapper {
+            width: 90%;
+            max-width: 1400px;
+            margin: 40px auto 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: #FAF4E8;
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(84,30,6,0.05);
+        }
+
+        /* --- LEFT PANEL: RECIPES & LOGISTICS INFO --- */
+        .track-details-panel {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .track-title-block h2 {
+            font-family: var(--font-bubble);
+            font-size: 38px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--brand-brown);
+            margin-bottom: 8px;
+        }
+
+        .order-id-tag {
+            font-size: 16px;
+            font-weight: 800;
+            color: rgba(84, 30, 6, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+        }
+        
+        .order-id-tag span {
+            color: var(--brand-brown);
+        }
+
+        .info-card-group {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            border-bottom: 2px dashed rgba(84, 30, 6, 0.15);
+            padding-bottom: 35px;
+            margin-bottom: 35px;
+        }
+
+        .info-card h4 {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: rgba(84, 30, 6, 0.5);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-card p {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--brand-brown);
+            line-height: 1.4;
+        }
+
+        /* Estimates Banner */
+        .arrival-estimate-box {
+            background-color: var(--accent-yellow);
+            border: 2.5px solid var(--brand-brown);
+            border-radius: 20px;
+            padding: 24px;
             text-align: center;
         }
 
-        h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
-        .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
-
-        /* Search Interface Box */
-        .lookup-box {
-            display: flex;
-            border: 1px solid var(--border-color);
-            background-color: var(--surface-color);
-            padding: 5px;
-            transition: border-color 0.3s ease;
-        }
-        .lookup-box:focus-within { border-color: #666666; }
-
-        .lookup-box input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            padding: 15px;
-            color: var(--text-main);
-            font-size: 16px;
-        }
-        .lookup-box input:focus { outline: none; }
-
-        .track-btn {
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            border: none;
-            padding: 0 30px;
-            font-weight: 700;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            transition: background-color 0.2s ease;
-        }
-        .track-btn:hover { background-color: #dddddd; }
-
-        /* Tracking Result Panel card */
-        .receipt-card {
-            display: none;
-            background-color: var(--surface-card);
-            border: 1px solid var(--border-color);
-            margin-top: 40px;
-            padding: 35px;
-            text-align: left;
-            animation: fadeInPage 0.5s ease-out;
-        }
-
-        .receipt-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        .order-tag { font-size: 20px; font-weight: 800; }
-        
-        /* Modern Status Badge styling */
-        .status-badge {
-            font-size: 11px;
-            font-weight: 700;
+        .arrival-estimate-box h3 {
+            font-family: var(--font-bubble);
+            font-size: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--text-main);
-            padding: 6px 14px;
-            background: transparent;
+            margin-bottom: 6px;
         }
 
-        .meta-line { font-size: 14px; color: var(--text-muted); margin: 8px 0; }
-        .meta-line strong { color: var(--text-main); }
+        .arrival-estimate-box p {
+            font-family: var(--font-bubble);
+            font-size: 36px;
+            font-weight: 900;
+        }
 
-        .items-breakdown { margin-top: 25px; border-top: 1px dashed var(--border-color); padding-top: 20px; }
-        .item-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+        /* --- RIGHT PANEL: DARK VERTICAL TIMELINE PIPELINE --- */
+        .track-pipeline-panel {
+            background-color: #0B0A0A;
+            color: #FFFFFF;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 3px solid var(--brand-brown);
+        }
+
+        .pipeline-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        /* Central spine line tracking */
+        .pipeline-container::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            bottom: 15px;
+            width: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        /* Active filling tracker line overlay */
+        .pipeline-progress-overlay {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            width: 4px;
+            height: 33.33%; /* Controls dynamic timeline heights */
+            background-color: var(--accent-yellow);
+            border-radius: 2px;
+            transition: height 0.5s ease;
+        }
+
+        .pipeline-step {
+            position: relative;
+            margin-bottom: 50px;
+            opacity: 0.35;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pipeline-step:last-of-type {
+            margin-bottom: 0;
+        }
+
+        /* Status node indicators */
+        .pipeline-node {
+            position: absolute;
+            left: -50px;
+            top: 4px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: #1A1919;
+            border: 4px solid #0B0A0A;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-step-text h3 {
+            font-family: var(--font-bubble);
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .pipeline-step-text p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Target Active Timeline Modifiers */
+        .pipeline-step.active {
+            opacity: 1;
+        }
+
+        .pipeline-step.active .pipeline-node {
+            background-color: var(--accent-yellow);
+            box-shadow: 0 0 0 4px var(--brand-brown), 0 0 15px var(--accent-yellow);
+        }
+
+        .pipeline-step.completed {
+            opacity: 0.85;
+        }
+        .pipeline-step.completed .pipeline-node {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px var(--brand-brown);
+        }
+
+        /* --- RESPONSIVE CONFIGURATIONS --- */
+        @media (max-width: 1024px) {
+            .track-main-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .track-pipeline-panel {
+                border-left: none;
+                border-top: 3px solid var(--brand-brown);
+                padding: 40px;
+            }
+            .track-details-panel {
+                padding: 40px;
+            }
+        }
     </style>
 </head>
-<body class="fade-in">
+<body>
 
-    <nav>
-        <div class="logo">FLIP BURGER.</div>
-        <div class="nav-links">
-            <a href="home.html">HOME</a>
-            <a href="menu.html">ORDER MENU</a>
-            <a href="track.html" class="active">TRACK ORDER</a>
-        </div>
-    </nav>
-
-    <div class="search-container">
-        <h2>LIVE TRACKING</h2>
-        <div class="subtitle">Enter your 4-digit system invoice code to look inside our SQLite kitchen queue.</div>
-
-        <div class="lookup-box">
-            <input type="number" id="trackingIdInput" placeholder="e.g., 1001">
-            <button class="track-btn">TRACE</button>
-        </div>
-
-        <div class="receipt-card" id="trackingResultPanel">
-            <div class="receipt-header">
-                <span class="order-tag">INVOICE #<span id="labelOrderId">0000</span></span>
-                <span class="status-badge" id="labelStatus">PENDING</span>
+    <div class="page-container">
+        <nav>
+            <a href="home.html" class="brand-logo-container">
+                <div class="burger-icon"><span></span><span></span><span></span></div>
+                Flip Burger
+            </a>
+            <div class="nav-actions">
+                <a href="menu.html" class="pill-btn">☰ Menu</a>
+                <a href="order.html" class="pill-btn">📝 Order Now</a>
+                <a href="track.html" class="pill-btn active">Track Order</a>
             </div>
+        </nav>
+
+        <main class="track-main-wrapper">
             
-            <div class="meta-line"><strong>Customer Profile:</strong> <span id="labelName">---</span></div>
-            <div class="meta-line"><strong>Delivery / Location:</strong> <span id="labelLocation">---</span></div>
-            
-            <div class="items-breakdown">
-                <h4 style="margin: 0 0 15px 0; font-size: 12px; letter-spacing: 1px; color:var(--text-muted);">PREPARATION DETAILS</h4>
-                <div id="trackingItemsContainer"></div>
-            </div>
+            <div class="track-details-panel">
+                <div class="track-title-block">
+                    <h2>Tracking Order</h2>
+                    <div class="order-id-tag">Order ID: <span id="lblOrderId">#FLIP-48291</span></div>
+                </div>
 
-            <hr style="border:0; border-top:1px solid var(--border-color); margin:25px 0;">
-            <div style="display:flex; justify-content:between; font-weight:800; font-size:18px;">
-                <span style="flex-grow:1;">TOTAL CHARGED:</span>
-                <span style="color:var(--text-main);">Rs. <span id="labelTotal">0</span></span>
-            </div>
-        </div>
-    </div>
-<script>
-    const MAIN_URL = "http://127.0.0.1:8000";
-
-    async function queryTrackingData() {
-        const orderIdVal = document.getElementById('trackingIdInput').value;
-        const panel = document.getElementById('trackingResultPanel');
-
-        if (!orderIdVal) {
-            alert("Input an active invoice tracking registration number first.");
-            return;
-        }
-
-        try {
-            const fetchResult = await fetch(`${MAIN_URL}/track/${orderIdVal}`);
-            
-            if (fetchResult.status === 404) {
-                alert("Tracking system returned negative match for that identification code.");
-                panel.style.display = "none";
-                return;
-            }
-
-            const activeOrderData = await fetchResult.json();
-
-            // Distribute texts to mapped hooks
-            document.getElementById('labelOrderId').innerText = activeOrderData.order_id;
-            document.getElementById('labelStatus').innerText = activeOrderData.status;
-            document.getElementById('labelName').innerText = activeOrderData.customer_name;
-            document.getElementById('labelLocation').innerText = activeOrderData.address_or_table;
-            document.getElementById('labelTotal').innerText = activeOrderData.total_bill;
-
-            // Fluid UI Dynamic status colors architecture adjustments
-            const statusBox = document.getElementById('labelStatus');
-            if (activeOrderData.status === "Pending") {
-                statusBox.style.borderColor = "#ffffff";
-                statusBox.style.color = "#ffffff";
-            } else if (activeOrderData.status === "Preparing") {
-                statusBox.style.borderColor = "#888888";
-                statusBox.style.color = "#888888";
-            } else if (activeOrderData.status === "Completed") {
-                statusBox.style.borderColor = "#28a745";
-                statusBox.style.color = "#28a745";
-            }
-
-            // Loop and clear out target arrays elements cleanly
-            const subContainer = document.getElementById('trackingItemsContainer');
-            subContainer.innerHTML = '';
-            
-            activeOrderData.items.forEach(foodRow => {
-                subContainer.innerHTML += `
-                    <div class="item-row">
-                        <span>${foodRow.name} <span style="color:var(--text-muted); font-size:12px;">x${foodRow.quantity}</span></span>
-                        <span>Rs. ${foodRow.price * foodRow.quantity}</span>
+                <div class="info-card-group">
+                    <div class="info-card">
+                        <h4>Delivery Destination</h4>
+                        <p id="lblAddress">House 24-B, Sector G, Phase 2, DHA</p>
                     </div>
-                `;
-            });
 
-            // Reveal the card
-            panel.style.display = "block";
+                    <div class="info-card">
+                        <h4>Payment Mode</h4>
+                        <p>Cash on Delivery (COD)</p>
+                    </div>
 
-        } catch (err) {
-            alert("Error establishing active data pipeline link.");
+                    <div class="info-card">
+                        <h4>Contact Reference</h4>
+                        <p id="lblCustomer">Customer Contact Verified</p>
+                    </div>
+                </div>
+
+                <div class="arrival-estimate-box">
+                    <h3>Estimated Delivery Time</h3>
+                    <p>25 - 35 MINS</p>
+                </div>
+            </div>
+
+            <div class="track-pipeline-panel">
+                <div class="pipeline-container">
+                    
+                    <div class="pipeline-progress-overlay" id="pipelineProgressLine"></div>
+
+                    <div class="pipeline-step completed" id="step1">
+                        <div class="pipeline-node">✓</div>
+                        <div class="pipeline-step-text">
+                            <h3>Order Confirmed</h3>
+                            <p>Your smash burger request has been locked into our system logs.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-step active" id="step2">
+                        <div class="pipeline-node">🔥</div>
+                        <div class="pipeline-step-text">
+                            <h3>In The Kitchen</h3>
+                            <p>Our grill masters are smashing patties and melting premium cheddar.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-step" id="step3">
+                        <div class="pipeline-node">🚲</div>
+                        <div class="pipeline-step-text">
+                            <h3>Out For Delivery</h3>
+                            <p>Your meal is packaged hot and packing out with a fleet rider.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-step" id="step4">
+                        <div class="pipeline-node">🍔</div>
+                        <div class="pipeline-step-text">
+                            <h3>Arrived & Enjoy</h3>
+                            <p>Rider has arrived at your destination node. Dig right in!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Generate a random high-fidelity Order Token on display load
+        document.getElementById('lblOrderId').innerText = '#FLIP-' + Math.floor(10000 + Math.random() * 90000);
+
+        // Simulation engine cycles timeline state nodes every 7 seconds for presentation previewing
+        let currentStatus = 2; 
+        const progressBar = document.getElementById('pipelineProgressLine');
+
+        function advanceSimulation() {
+            currentStatus++;
+            if (currentStatus > 4) {
+                currentStatus = 1; // Reset loop cycles
+            }
+
+            // Reset pipeline nodes classes
+            for (let i = 1; i <= 4; i++) {
+                let stepElem = document.getElementById('step' + i);
+                stepElem.classList.remove('active', 'completed');
+                
+                if (i < currentStatus) {
+                    stepElem.classList.add('completed');
+                    stepElem.querySelector('.pipeline-node').innerText = "✓";
+                } else if (i === currentStatus) {
+                    stepElem.classList.add('active');
+                    // Retain specific emojis for status identity
+                    if(i===2) stepElem.querySelector('.pipeline-node').innerText = "🔥";
+                    if(i===3) stepElem.querySelector('.pipeline-node').innerText = "🚲";
+                    if(i===4) stepElem.querySelector('.pipeline-node').innerText = "🍔";
+                } else {
+                    stepElem.querySelector('.pipeline-node').innerText = "";
+                }
+            }
+
+            // Map corresponding heights to the background overlay element line tracking
+            let progressHeights = { 1: 0, 2: 33.33, 3: 66.66, 4: 100 };
+            progressBar.style.height = progressHeights[currentStatus] + '%';
         }
-    }
 
-    // Connect action parameters to the execution button
-    document.querySelector('.track-btn').setAttribute('onclick', 'queryTrackingData()');
-</script>
+        // Cycle status tracks automatically every 7 seconds
+        setInterval(advanceSimulation, 7000);
+    </script>
 </body>
 </html>
