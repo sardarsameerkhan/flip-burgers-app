@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Burger - Track Your Order</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #fcf8f2; color: #333; }
+        header { background-color: #e63946; color: white; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
+        h2 { color: #1d3557; margin-bottom: 20px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 30px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        .btn { padding: 12px 24px; background-color: #e63946; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .btn:hover { background-color: #c1121f; }
+        .status-card { display: none; background-color: #f8f9fa; border: 2px solid #1d3557; border-radius: 8px; padding: 20px; text-align: left; margin-top: 20px; }
+        .status-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .badge { background-color: #f1a545; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .item-row { display: flex; justify-content: space-between; margin-bottom: 8px; color: #555; }
+    </style>
+</head>
+<body>
+
+<header>🍔 FLIP BURGER - ORDER TRACKING</header>
+
+<div class="container">
+    <h2>Track Your Live Order</h2>
+    <p>Enter the Order ID you received during checkout to see your burger's current status.</p>
+    
+    <div class="search-box">
+        <input type="number" id="orderIdInput" placeholder="Enter your 4-digit Order ID (e.g., 1001)">
+        <button class="btn" onclick="trackOrder()">Track</button>
+    </div>
+
+    <div class="status-card" id="statusCard">
+        <div class="status-header">
+            <h3>Order #<span id="displayOrderId">0000</span></h3>
+            <span class="badge" id="orderStatus">Pending</span>
+        </div>
+        <p><strong>Customer:</strong> <span id="customerName">---</span></p>
+        <p><strong>Location/Table:</strong> <span id="customerLocation">---</span></p>
+        <hr style="border: 0; border-top: 1px solid #eee;">
+        <h4>Items Ordered:</h4>
+        <div id="itemsContainer"></div>
+        <hr style="border: 0; border-top: 1px solid #eee;">
+        <h3 style="text-align: right; color: #e63946;">Total Bill: Rs. <span id="totalBill">0</span></h3>
+    </div>
+</div>
+
+</body>
+</html>
