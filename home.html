@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLIP BURGER | Premium Smashed Burgers</title>
+    <style>
+        /* Minimalist Noir Design System */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #111111;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Fluid Page Fade-In Animation */
+        .fade-in {
+            animation: fadeInPage 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        /* Hero Split Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 80px);
+            align-items: center;
+        }
+
+        .hero-text {
+            padding: 0 80px;
+        }
+
+        .hero-text h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin: 0 0 20px 0;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        /* Premium Interactive Button Architecture */
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 35px;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 0; /* Boxy modern luxury aesthetic */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            background-color: #dddddd;
+        }
+
+        /* Graphic/Visual Frame Side */
+        .hero-image-frame {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #0d0d0d, #151515);
+            border-left: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Minimalist placeholder visual graphic */
+        .abstract-burger-art {
+            width: 250px;
+            height: 250px;
+            border: 2px solid var(--text-main);
+            transform: rotate(45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slowRotate 20s linear infinite;
+        }
+
+        .abstract-burger-art::before {
+            content: 'FLIP';
+            transform: rotate(-45deg);
+            font-weight: 900;
+            letter-spacing: 4px;
+            font-size: 24px;
+        }
+
+        @keyframes slowRotate {
+            from { transform: rotate(45deg); }
+            to { transform: rotate(405deg); }
+        }
+
+        /* Footer/Locations Utility Info */
+        .info-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 40px 80px;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .info-block h4 {
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="fade-in">
+
+    <nav>
+        <div class="logo">FLIP BURGER.</div>
+        <div class="nav-links">
+            <a href="home.html" class="active">HOME</a>
+            <a href="menu.html">ORDER MENU</a>
+            <a href="track.html">TRACK ORDER</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-text">
+            <h1>SMASHED.<br>FLIPPED.<br>PERFECTED.</h1>
+            <p>Experience Gujranwala's definitive luxury street food culture. Hand-pressed premium beef patties, toasted potato buns, and our classified signature sauces.</p>
+            <a href="menu.html" class="cta-btn">EXPLORE THE MENU</a>
+        </div>
+        
+        <div class="hero-image-frame">
+            <div class="abstract-burger-art"></div>
+        </div>
+    </div>
+
+    <div class="info-footer">
+        <div class="info-block">
+            <h4>LOCATIONS (GUJRANWALA)</h4>
+            <p>• Satellite Town Branch<br>• WAPDA Town Commercial Market</p>
+        </div>
+        <div class="info-block">
+            <h4>HOURS OF OPERATION</h4>
+            <p>Monday – Sunday: 4:00 PM – 2:00 AM<br>Available for Pickup & Dine-in</p>
+        </div>
+        <div class="info-block">
+            <h4>CONTACT DETAILS</h4>
+            <p>Phone: +92 55 1234567<br>Instagram: @flipburger.grw</p>
+        </div>
+    </div>
+
+</body>
+</html>
