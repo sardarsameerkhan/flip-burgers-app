@@ -6,14 +6,13 @@
     <title>Flip Burger | Smoky Cheesy Burger</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* Exact UI Color Mapping from the provided Screenshot */
         :root {
-            --bg-cream: #FDF2DC;       /* The distinct retro warm cream background */
-            --brand-brown: #4A1A02;     /* Deep rich chocolate brown for headers */
-            --accent-yellow: #FFC72C;   /* Bright warm cheese yellow */
+            --bg-cream: #FDF2DC;       
+            --brand-brown: #4A1A02;     
+            --accent-yellow: #FFC72C;   
             --font-bubble: 'Fredoka', sans-serif;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
         }
@@ -28,149 +27,139 @@
             background-color: var(--bg-cream);
             color: var(--brand-brown);
             font-family: var(--font-sans);
-            overflow-x: hidden;
-            min-height: 100vh;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* Smooth Entrance Motion Trigger */
         .page-reveal {
-            animation: clearFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes clearFadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Upper Pill Navigation Menu System */
+        /* Adjusted Navigation to push elements tightly to the top and sides */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 100px;
+            padding: 25px 40px; /* Reduced padding to move items higher up and further right/left */
             width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
+            max-width: 100%;
         }
 
         .brand-logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-family: var(--font-bubble);
-            font-size: 32px;
-            font-weight: 700;
+            font-size: 34px;
+            font-weight: 900;
             color: var(--brand-brown);
             text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
-        /* Replicating the distinct minimalist vector burger icon */
         .burger-icon {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            width: 28px;
+            gap: 5px;
+            width: 32px;
         }
         .burger-icon span {
             display: block;
-            height: 4px;
+            height: 4.5px;
             background-color: var(--brand-brown);
-            border-radius: 2px;
+            border-radius: 3px;
         }
-        .burger-icon span:first-child { border-radius: 10px 10px 2px 2px; height: 6px; }
-        .burger-icon span:last-child { border-radius: 2px 2px 10px 10px; height: 5px; }
+        .burger-icon span:first-child { border-radius: 12px 12px 2px 2px; height: 7px; }
+        .burger-icon span:last-child { border-radius: 2px 2px 12px 12px; height: 6px; }
 
         .nav-actions {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
-        /* Precise wireframe pill buttons styling from the screen asset */
         .pill-btn {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 28px;
+            padding: 10px 24px;
             border: 2px solid var(--brand-brown);
             border-radius: 30px;
             background: transparent;
             color: var(--brand-brown);
             font-family: var(--font-sans);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             text-decoration: none;
-            cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
         .pill-btn:hover {
             background-color: var(--brand-brown);
             color: var(--bg-cream);
-            transform: translateY(-2px);
         }
 
-        /* --- THE HERO SCENE FRAMEWORK --- */
+        /* Hero Container Area */
         .hero-view {
             position: relative;
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            min-height: calc(100vh - 140px);
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-bottom: 80px;
+            width: 100%;
+            padding-bottom: 40px;
         }
 
-        /* Giant Overlapping Bubble Text Layer behind the food item */
+        /* Thickened, massive, tightly tracking text matching the Dribbble sample exactly */
         .colossal-bg-text {
-            font-family: var(--brand-brown);
             font-family: var(--font-bubble);
-            font-weight: 700;
-            font-size: clamp(120px, 14vw, 220px);
-            line-height: 0.82;
+            font-weight: 900;
+            font-size: clamp(100px, 15vw, 240px);
+            line-height: 0.78;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: -2px;
+            letter-spacing: -4px;
             color: var(--brand-brown);
             user-select: none;
             z-index: 1;
-            max-width: 1200px;
         }
 
-        /* Centerpiece Floating Food Asset Frame wrapper */
+        /* Bulletproof Central Asset Graphic - Zero External Hotlinks */
         .burger-hero-image-frame {
             position: absolute;
-            top: 48%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 5;
             width: 100%;
-            max-width: 540px;
+            max-width: 460px;
             display: flex;
             justify-content: center;
             align-items: center;
             pointer-events: none;
         }
 
-        /* Floating interaction animation mimicking luxury web mechanics */
-        .burger-hero-image-frame img {
+        /* Custom high-contrast layered SVG vector asset that will never break */
+        .vector-burger-shield {
             width: 100%;
             height: auto;
-            object-fit: contain;
+            filter: drop-shadow(0 20px 35px rgba(84,30,6,0.3));
             animation: smoothFloat 4s ease-in-out infinite;
         }
 
         @keyframes smoothFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
         }
 
-        /* Bottom Yellow Swipe Block from snapshot */
         .bottom-shelf-decorator {
-            width: 85%;
-            max-width: 1400px;
-            height: 120px;
+            width: 92%;
+            max-width: 1700px;
+            height: 60px;
             background-color: var(--accent-yellow);
-            border-radius: 24px 24px 0 0;
+            border-radius: 20px 20px 0 0;
             margin: 0 auto;
             border: 2px solid var(--brand-brown);
             border-bottom: none;
@@ -191,23 +180,35 @@
             </a>
             
             <div class="nav-actions">
-                <a href="menu.html" class="pill-btn">
-                    <span style="font-size: 14px;">☰</span> Menu
-                </a>
-                <a href="menu.html" class="pill-btn">
-                    <span style="font-size: 14px;">📝</span> Order Now
-                </a>
+                <a href="menu.html" class="pill-btn">☰ Menu</a>
+                <a href="menu.html" class="pill-btn">📝 Order Now</a>
                 <a href="track.html" class="pill-btn">Track Order</a>
             </div>
         </nav>
 
         <div class="hero-view">
             <h1 class="colossal-bg-text">
-                SMOKY<br>CREAMY<br>BURGER
+                SMOKY<br>CHEESY<br>BURGER
             </h1>
 
             <div class="burger-hero-image-frame">
-               <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Photo.png" alt="Flip Burger Stack centerpiece" style="filter: drop-shadow(0 25px 40px rgba(84,30,6,0.3));">
+                <svg class="vector-burger-shield" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M70 240C70 130 150 90 250 90C350 90 430 130 430 240H70Z" fill="#E28743" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
+                    <path d="M140 140C145 140 148 136 146 132C142 122 120 126 122 136C122 139 126 140 140 140Z" fill="#FFF3DD"/>
+                    <path d="M220 125C225 125 228 121 226 117C222 107 200 111 202 121C202 124 206 125 220 125Z" fill="#FFF3DD"/>
+                    <path d="M320 135C325 135 328 131 326 127C322 117 300 121 302 131C302 134 306 135 320 135Z" fill="#FFF3DD"/>
+                    <path d="M380 175C385 175 388 171 386 167C382 157 360 161 362 171C362 174 366 175 380 175Z" fill="#FFF3DD"/>
+                    
+                    <path d="M50 240C40 240 35 255 45 262C55 270 70 265 75 255C80 265 95 270 105 262C115 255 120 240 130 240C140 240 145 255 155 262C165 270 180 265 185 255C190 265 205 270 215 262C225 255 230 240 240 240C250 240 255 255 265 262C275 270 290 265 295 255C300 265 315 270 325 262C335 255 340 240 350 240C360 240 365 255 375 262C385 270 400 265 405 255C410 265 425 270 435 262C445 255 440 240 430 240H50Z" fill="#6EA141" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
+                    
+                    <rect x="75" y="275" width="350" height="45" rx="20" fill="#6B3E26" stroke="#4A1A02" stroke-width="12"/>
+                    <rect x="75" y="345" width="350" height="45" rx="20" fill="#54311E" stroke="#4A1A02" stroke-width="12"/>
+                    
+                    <path d="M70 300H430L410 335C405 345 390 345 385 335L370 315L345 350C335 365 310 365 300 350L275 315L245 360C235 375 205 375 195 360L170 315L145 345C135 355 120 355 110 345L85 315L70 300Z" fill="#FFC72C" stroke="#4A1A02" stroke-width="11" stroke-linejoin="round"/>
+                    <path d="M85 365H415L400 390L360 375L330 400C320 410 300 410 292 395L270 375L230 405C220 412 205 412 195 400L170 375L130 395L85 365Z" fill="#E6A100" stroke="#4A1A02" stroke-width="10" stroke-linejoin="round"/>
+                    
+                    <path d="M80 400H420V420C420 450 380 470 250 470C120 470 80 450 80 420V400Z" fill="#D0742F" stroke="#4A1A02" stroke-width="12" stroke-linejoin="round"/>
+                </svg>
             </div>
         </div>
 
