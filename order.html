@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Burger | Order Now</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-cream: #FDF2DC;       
+            --brand-brown: #541E06;     
+            --accent-yellow: #FFC72C;   
+            --font-bubble: 'Fredoka', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- NAVIGATION HEADER --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px 20px 60px; 
+            width: 100%;
+            max-width: 1600px;
+        }
+
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-bubble);
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--brand-brown);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 32px;
+        }
+        .burger-icon span {
+            display: block;
+            height: 5px;
+            background-color: var(--brand-brown);
+            border-radius: 3px;
+        }
+        .burger-icon span:first-child { border-radius: 12px 12px 2px 2px; height: 8px; }
+        .burger-icon span:last-child { border-radius: 2px 2px 12px 12px; height: 6px; }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border: 2px solid var(--brand-brown);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .pill-btn:hover, .pill-btn.active {
+            background-color: var(--brand-brown);
+            color: var(--bg-cream);
+        }
+
+        /* --- CHECKOUT MAIN GRID --- */
+        .order-main-wrapper {
+            width: 90%;
+            max-width: 1400px;
+            margin: 40px auto 80px auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 0;
+            background-color: #FAF4E8;
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(84,30,6,0.05);
+        }
+
+        /* --- LEFT COLUMN: ORDER SUMMARY --- */
+        .order-summary-panel {
+            padding: 60px;
+        }
+
+        .order-title {
+            font-family: var(--font-bubble);
+            font-size: 38px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--brand-brown);
+            margin-bottom: 35px;
+        }
+
+        .cart-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            border-bottom: 2px dashed rgba(84, 30, 6, 0.15);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item-detail h4 {
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--brand-brown);
+            margin-bottom: 4px;
+        }
+
+        .cart-item-detail p {
+            font-size: 14px;
+            color: rgba(84, 30, 6, 0.6);
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-brown);
+            background: transparent;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--brand-brown);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+        }
+        .quantity-btn:hover {
+            background-color: var(--brand-brown);
+            color: #FAF4E8;
+        }
+
+        .quantity-num {
+            font-size: 18px;
+            font-weight: 800;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: 800;
+            width: 80px;
+            text-align: right;
+        }
+
+        /* Pricing Totals Bracket */
+        .summary-total-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: rgba(84, 30, 6, 0.8);
+        }
+
+        .summary-row.grand-total {
+            border-top: 2px solid var(--brand-brown);
+            padding-top: 16px;
+            margin-top: 8px;
+            font-family: var(--font-bubble);
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--brand-brown);
+            text-transform: uppercase;
+        }
+
+        /* --- RIGHT COLUMN: CUSTOMER FORM PANEL --- */
+        .order-form-panel {
+            background-color: #0B0A0A;
+            color: #FFFFFF;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 3px solid var(--brand-brown);
+        }
+
+        .form-heading {
+            font-family: var(--font-bubble);
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: #1A1919;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            color: #FFFFFF;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-yellow);
+        }
+
+        /* Big Punchy Call To Action Checkout Button */
+        .submit-order-btn {
+            width: 100%;
+            background-color: var(--accent-yellow);
+            color: var(--brand-brown);
+            border: none;
+            border-radius: 30px;
+            padding: 18px;
+            font-family: var(--font-bubble);
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.1s ease, background-color 0.2s;
+        }
+
+        .submit-order-btn:hover {
+            background-color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        /* --- RESPONSIVE CONFIGURATIONS --- */
+        @media (max-width: 1024px) {
+            .order-main-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .order-form-panel {
+                border-left: none;
+                border-top: 3px solid var(--brand-brown);
+                padding: 40px;
+            }
+            .order-summary-panel {
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <nav>
+            <a href="home.html" class="brand-logo-container">
+                <div class="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                Flip Burger
+            </a>
+            
+            <div class="nav-actions">
+                <a href="menu.html" class="pill-btn">☰ Menu</a>
+                <a href="order.html" class="pill-btn active">📝 Order Now</a>
+                <a href="track.html" class="pill-btn">Track Order</a>
+            </div>
+        </nav>
+
+        <main class="order-main-wrapper">
+            
+            <div class="order-summary-panel">
+                <h2 class="order-title">Your Basket</h2>
+                
+                <div class="cart-items-list">
+                    <div class="cart-item">
+                        <div class="cart-item-detail">
+                            <h4>The OG Flip (Double)</h4>
+                            <p>Smashed beef, layered cheese, onion jam</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity-num">1</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <span class="cart-item-price">940</span>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="cart-item-detail">
+                            <h4>Curly Fries</h4>
+                            <p>Seasoned spiral cut crispy potatoes</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn">-</button>
+                            <span class="quantity-num">2</span>
+                            <button class="quantity-btn">+</button>
+                        </div>
+                        <span class="cart-item-price">780</span>
+                    </div>
+                </div>
+
+                <div class="summary-total-block">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>1720</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery Fee</span>
+                        <span>120</span>
+                    </div>
+                    <div class="summary-row grand-total">
+                        <span>Total Amount</span>
+                        <span>1840 PKR</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-form-panel">
+                <div>
+                    <h3 class="form-heading">Delivery Details</h3>
+                    
+                    <form class="checkout-form" onsubmit="event.preventDefault();">
+                        <div class="form-group">
+                            <label for="cust-name">Full Name</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Kristen Stewart" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-phone">Phone Number</label>
+                            <input type="tel" id="cust-phone" placeholder="e.g. +92 300 1234567" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-address">Delivery Address</label>
+                            <textarea id="cust-address" rows="3" placeholder="Street address, apartment, city corner" required></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <a href="track.html" class="submit-order-btn">Confirm Order 🚀</a>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
