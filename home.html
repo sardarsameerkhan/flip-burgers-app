@@ -3,173 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLIP BURGER // Smashed. Flipped. Perfected.</title>
+    <title>Flip Burger | Smoky Cheesy Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Exact Conversion: Peno Lab Design Tokens */
+        /* Exact UI Color Mapping from the provided Screenshot */
         :root {
-            --primary-highlight: #F57C00; /* Intense Cheesy Orange */
-            --bg-body: #101012; /* Deep Smoky Charcoal */
-            --bg-navbar: rgba(16, 16, 18, 0.95);
-            --text-main: #FFFFFF;
-            --text-muted: #A0A0A0;
-            --border-ui: #2A2A2E;
-            --font-stack-header: 'Arial Black', 'Helvetica Bold', sans-serif; /* Placeholder for Impact */
-            --font-stack-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --bg-cream: #FDF2DC;       /* The distinct retro warm cream background */
+            --brand-brown: #4A1A02;     /* Deep rich chocolate brown for headers */
+            --accent-yellow: #FFC72C;   /* Bright warm cheese yellow */
+            --font-bubble: 'Fredoka', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            font-family: var(--font-stack-body);
+            background-color: var(--bg-cream);
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
 
-        /* Essential Entrance Animations */
-        @keyframes revealUp {
-            from { opacity: 0; transform: translateY(40px); }
+        /* Smooth Entrance Motion Trigger */
+        .page-reveal {
+            animation: clearFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes clearFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .reveal-node {
-            animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-        }
-
-        /* Clean Navbar System */
+        /* Upper Pill Navigation Menu System */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 80px;
-            background-color: var(--bg-navbar);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-ui);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand-identifier {
-            font-family: var(--font-stack-header);
-            font-size: 24px;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--text-main);
-        }
-
-        /* --- HERO MODULE --- */
-        .hero-view {
-            max-width: 1400px;
+            padding: 40px 100px;
+            width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 100px 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            min-height: calc(100vh - 200px);
         }
 
-        .hero-messaging {
-            animation-delay: 0.1s;
-        }
-
-        .super-title {
-            font-family: var(--font-stack-header);
-            font-size: 110px;
-            line-height: 0.9;
-            letter-spacing: -5px;
-            text-transform: uppercase;
-            margin: 0 0 30px 0;
-        }
-
-        .super-title span {
-            color: var(--primary-highlight);
-        }
-
-        .meta-description {
-            font-size: 18px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 550px;
-            margin-bottom: 50px;
-        }
-
-        .interaction-row {
+        .brand-logo-container {
             display: flex;
             align-items: center;
-            gap: 40px;
-        }
-
-        .primary-action-btn {
-            padding: 22px 50px;
-            background-color: var(--primary-highlight);
-            color: #FFFFFF;
+            gap: 10px;
+            font-family: var(--font-bubble);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--brand-brown);
             text-decoration: none;
-            font-weight: 800;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
         }
 
-        .primary-action-btn:hover {
-            background-color: #E65100;
-            transform: scale(1.05);
+        /* Replicating the distinct minimalist vector burger icon */
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 28px;
         }
-
-        /* Asset/Showcase Container */
-        .hero-asset-container {
-            position: relative;
-            animation-delay: 0.3s;
-        }
-
-        .hero-asset-shadow {
-            max-width: 100%;
-            height: auto;
+        .burger-icon span {
             display: block;
+            height: 4px;
+            background-color: var(--brand-brown);
+            border-radius: 2px;
+        }
+        .burger-icon span:first-child { border-radius: 10px 10px 2px 2px; height: 6px; }
+        .burger-icon span:last-child { border-radius: 2px 2px 10px 10px; height: 5px; }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Precise wireframe pill buttons styling from the screen asset */
+        .pill-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border: 2px solid var(--brand-brown);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--brand-brown);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .pill-btn:hover {
+            background-color: var(--brand-brown);
+            color: var(--bg-cream);
+            transform: translateY(-2px);
+        }
+
+        /* --- THE HERO SCENE FRAMEWORK --- */
+        .hero-view {
+            position: relative;
+            width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
-            /* Placeholder for transparent burger graphic */
+            min-height: calc(100vh - 140px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        /* Giant Overlapping Bubble Text Layer behind the food item */
+        .colossal-bg-text {
+            font-family: var(--brand-brown);
+            font-family: var(--font-bubble);
+            font-weight: 700;
+            font-size: clamp(120px, 14vw, 220px);
+            line-height: 0.82;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: var(--brand-brown);
+            user-select: none;
+            z-index: 1;
+            max-width: 1200px;
+        }
+
+        /* Centerpiece Floating Food Asset Frame wrapper */
+        .burger-hero-image-frame {
+            position: absolute;
+            top: 48%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        /* Floating interaction animation mimicking luxury web mechanics */
+        .burger-hero-image-frame img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            animation: smoothFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes smoothFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Bottom Yellow Swipe Block from snapshot */
+        .bottom-shelf-decorator {
+            width: 85%;
+            max-width: 1400px;
+            height: 120px;
+            background-color: var(--accent-yellow);
+            border-radius: 24px 24px 0 0;
+            margin: 0 auto;
+            border: 2px solid var(--brand-brown);
+            border-bottom: none;
         }
     </style>
 </head>
-<body class="reveal-node">
+<body>
 
-    <nav>
-        <div class="brand-identifier">Flip Burger //</div>
-        <div class="nav-links">
-            <a href="home.html" class="active">HOME</a>
-            <a href="menu.html">ORDER MENU</a>
-            <a href="track.html">TRACK ORDER</a>
-        </div>
-    </nav>
+    <div class="page-reveal">
+        <nav>
+            <a href="home.html" class="brand-logo-container">
+                <div class="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                Flip Burger
+            </a>
+            
+            <div class="nav-actions">
+                <a href="menu.html" class="pill-btn">
+                    <span style="font-size: 14px;">☰</span> Menu
+                </a>
+                <a href="menu.html" class="pill-btn">
+                    <span style="font-size: 14px;">📝</span> Order Now
+                </a>
+                <a href="track.html" class="pill-btn">Track Order</a>
+            </div>
+        </nav>
 
-    <div class="hero-view">
-        <div class="hero-messaging reveal-node">
-            <h1 class="super-title">Smashed.<br><span>Perfected.</span><br>Delivered.</h1>
-            <p class="meta-description">Experience the definitive smashed burger culture in Gujranwala. Hand-pressed premium beef patties, melted sharp cheddar, and signature sauces coordinated via real-time logistics.</p>
-            <div class="interaction-row">
-                <a href="menu.html" class="primary-action-btn">ORDER CREATION</a>
+        <div class="hero-view">
+            <h1 class="colossal-bg-text">
+                SMOKY<br>CREAMY<br>BURGER
+            </h1>
+
+            <div class="burger-hero-image-frame">
+               <img src="https://www.pngmart.com/files/16/Cheese-Burger-PNG-Photo.png" alt="Flip Burger Stack centerpiece" style="filter: drop-shadow(0 25px 40px rgba(84,30,6,0.3));">
             </div>
         </div>
 
-        <div class="hero-asset-container reveal-node">
-            <img src="" alt="Premium Transparent Burger Graphic Placeholder" class="hero-asset-shadow">
-        </div>
+        <div class="bottom-shelf-decorator"></div>
     </div>
 
 </body>
