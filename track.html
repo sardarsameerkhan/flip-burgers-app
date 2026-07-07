@@ -181,6 +181,72 @@
             </div>
         </div>
     </div>
+<script>
+    const MAIN_URL = "http://127.0.0.1:8000";
 
+    async function queryTrackingData() {
+        const orderIdVal = document.getElementById('trackingIdInput').value;
+        const panel = document.getElementById('trackingResultPanel');
+
+        if (!orderIdVal) {
+            alert("Input an active invoice tracking registration number first.");
+            return;
+        }
+
+        try {
+            const fetchResult = await fetch(`${MAIN_URL}/track/${orderIdVal}`);
+            
+            if (fetchResult.status === 404) {
+                alert("Tracking system returned negative match for that identification code.");
+                panel.style.display = "none";
+                return;
+            }
+
+            const activeOrderData = await fetchResult.json();
+
+            // Distribute texts to mapped hooks
+            document.getElementById('labelOrderId').innerText = activeOrderData.order_id;
+            document.getElementById('labelStatus').innerText = activeOrderData.status;
+            document.getElementById('labelName').innerText = activeOrderData.customer_name;
+            document.getElementById('labelLocation').innerText = activeOrderData.address_or_table;
+            document.getElementById('labelTotal').innerText = activeOrderData.total_bill;
+
+            // Fluid UI Dynamic status colors architecture adjustments
+            const statusBox = document.getElementById('labelStatus');
+            if (activeOrderData.status === "Pending") {
+                statusBox.style.borderColor = "#ffffff";
+                statusBox.style.color = "#ffffff";
+            } else if (activeOrderData.status === "Preparing") {
+                statusBox.style.borderColor = "#888888";
+                statusBox.style.color = "#888888";
+            } else if (activeOrderData.status === "Completed") {
+                statusBox.style.borderColor = "#28a745";
+                statusBox.style.color = "#28a745";
+            }
+
+            // Loop and clear out target arrays elements cleanly
+            const subContainer = document.getElementById('trackingItemsContainer');
+            subContainer.innerHTML = '';
+            
+            activeOrderData.items.forEach(foodRow => {
+                subContainer.innerHTML += `
+                    <div class="item-row">
+                        <span>${foodRow.name} <span style="color:var(--text-muted); font-size:12px;">x${foodRow.quantity}</span></span>
+                        <span>Rs. ${foodRow.price * foodRow.quantity}</span>
+                    </div>
+                `;
+            });
+
+            // Reveal the card
+            panel.style.display = "block";
+
+        } catch (err) {
+            alert("Error establishing active data pipeline link.");
+        }
+    }
+
+    // Connect action parameters to the execution button
+    document.querySelector('.track-btn').setAttribute('onclick', 'queryTrackingData()');
+</script>
 </body>
 </html>
