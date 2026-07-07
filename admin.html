@@ -35,6 +35,86 @@
         <p style="color: #b5bac1;">No orders placed yet. Keep the screen open...</p>
     </div>
 </div>
+<script>
+    const BACKEND_URL = "http://127.0.0.1:8000";
 
+    // 1. Fetch all system orders from the server
+    async function loadAllOrders() {
+        try {
+            const response = await fetch(`${BACKEND_URL}/admin/orders`);
+            const orders = await response.json();
+            renderOrdersGrid(orders);
+        } catch (error) {
+            console.error("Failed fetching orders:", error);
+        }
+    }
+
+    // 2. Render each order inside a dark dashboard card
+    function renderOrdersGrid(orders) {
+        const grid = document.getElementById('ordersGrid');
+        
+        if (orders.length === 0) {
+            grid.innerHTML = '<p style="color: #b5bac1;">No orders placed yet. Waiting for incoming traffic...</p>';
+            return;
+        }
+
+        grid.innerHTML = '';
+        orders.forEach(order => {
+            // Build the items string
+            let itemsHtml = '';
+            order.items.forEach(item => {
+                itemsHtml += `
+                    <div class="item-line">
+                        <span>${item.name} x${item.quantity}</span>
+                    </div>
+                `;
+            });
+
+            // Status select array configurations
+            grid.innerHTML += `
+                <div class="order-card">
+                    <div class="card-header">
+                        <span class="order-id">Order #${order.order_id}</span>
+                        <select class="status-select" onchange="updateStatus(${order.order_id}, this.value)">
+                            <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                            <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                        </select>
+                    </div>
+                    <div class="order-details">
+                        <p><strong>Customer:</strong> ${order.customer_name}</p>
+                        <p><strong>Phone:</strong> ${order.phone_number}</p>
+                        <p><strong>Destination:</strong> ${order.address_or_table}</p>
+                        <div class="items-box">
+                            <strong>Items:</strong>
+                            ${itemsHtml}
+                        </div>
+                        <h4 style="margin-top:15px; text-align:right; color:#28a745;">Total Bill: Rs. ${order.total_bill}</h4>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Connect status updates to Route E on the backend
+    async function updateStatus(orderId, newStatus) {
+        try {
+            await fetch(`${BACKEND_URL}/admin/orders/${orderId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ new_status: newStatus })
+            });
+            alert(`Order #${orderId} changed status to ${newStatus}`);
+        } catch (error) {
+            alert("Could not update status on server backend.");
+        }
+    }
+
+    // Set listener for refresh button click
+    document.querySelector('.refresh-btn').setAttribute('onclick', 'loadAllOrders()');
+
+    // Load instantly on screen wake
+    loadAllOrders();
+</script>
 </body>
 </html>
