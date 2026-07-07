@@ -123,7 +123,6 @@
             z-index: 1;
         }
 
-        /* Fixed Center Floating Frame Wrapper */
         .burger-hero-image-frame {
             position: absolute;
             top: 52%;
@@ -161,13 +160,12 @@
             margin: 60px auto 20px auto;
             padding: 40px 80px;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr; /* Gives more room for a giant burger display */
+            grid-template-columns: 1.1fr 0.9fr; 
             gap: 40px;
             align-items: center;
             position: relative;
         }
 
-        /* Scaled to let the image burst outward massively */
         .history-image-box {
             width: 100%;
             display: flex;
@@ -178,16 +176,15 @@
         }
 
         .history-image-box img {
-            width: 140%; /* Made massive to look heavy, oversized, and premium */
+            width: 140%; 
             max-width: 750px;
             height: auto;
             object-fit: contain;
-            margin-left: -70px; /* Shifts left slightly to overlap beautifully */
+            margin-left: -70px; 
             filter: drop-shadow(0 30px 45px rgba(84,30,6,0.4));
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* Interactive pop out effect on scroll hover */
         .history-card-section:hover .history-image-box img {
             transform: scale(1.05) rotate(-1deg);
         }
@@ -216,20 +213,77 @@
             color: var(--brand-brown);
             max-width: 480px;
         }
-        /* Fluid scaling mechanics for responsive mobile devices */
+
+        /* --- NEW ADDITION: DISCOVER BEST BURGERS BROWN SECTION --- */
+        .discovery-card-section {
+            width: 90%;
+            max-width: 1400px;
+            background-color: var(--brand-brown);
+            border: 3px solid var(--brand-brown);
+            border-radius: 40px;
+            margin: 40px auto 20px auto;
+            padding: 40px 0 40px 80px; /* Right padding 0 lets the image bleed naturally */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            position: relative;
+            overflow: hidden; /* Clips the giant burger image cleanly inside the corners */
+        }
+
+        .discovery-content-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .discovery-title {
+            font-family: var(--font-bubble);
+            font-size: clamp(48px, 5.5vw, 78px);
+            font-weight: 900;
+            line-height: 1.0;
+            color: var(--accent-yellow); /* Bright yellow headline contrast on dark brown */
+            letter-spacing: -1px;
+            max-width: 550px;
+        }
+
+        .discovery-image-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        .discovery-image-box img {
+            width: 125%; /* Massive sizing to match the right-side bleed display */
+            height: auto;
+            object-fit: contain;
+            margin-right: -40px; /* Overlaps edge cleanly */
+            filter: drop-shadow(-10px 15px 30px rgba(0,0,0,0.5));
+        }
+
+        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
-            .history-card-section {
+            .history-card-section, .discovery-card-section {
                 grid-template-columns: 1fr;
                 text-align: center;
-                padding: 60px 40px;
+                padding: 40px;
             }
-            .history-image-box img {
+            .history-image-box img, .discovery-image-box img {
                 width: 100%;
                 margin-left: 0;
+                margin-right: 0;
                 max-width: 450px;
             }
-            .history-content-box {
-                align-items: center;
+            .discovery-image-box {
+                justify-content: center;
+                margin-top: 20px;
+            }
+            .discovery-title {
+                margin-index: auto;
             }
         }
     </style>
@@ -272,6 +326,16 @@
             <div class="history-content-box">
                 <h2 class="history-title">Flavor<br>That Makes<br>History!</h2>
                 <p class="history-tagline">Every bite is bold, smoky, and unforgettable.</p>
+            </div>
+        </section>
+
+        <section class="discovery-card-section">
+            <div class="discovery-content-box">
+                <h2 class="discovery-title">Discover<br>the Best<br>Burgers<br>in Town!</h2>
+            </div>
+            
+            <div class="discovery-image-box">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" alt="Discover the Best Burgers Asset">
             </div>
         </section>
     </div>
