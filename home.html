@@ -3,52 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLIP BURGER // Definitive Smashed Burger Experience</title>
+    <title>FLIP BURGER // Smashed. Flipped. Perfected.</title>
     <style>
+        /* Exact Conversion: Peno Lab Design Tokens */
         :root {
-            --bg: #0a0a0c;
-            --surface: #121216;
-            --surface-accent: #1a1a22;
-            --text: #ffffff;
-            --muted: #6c6c78;
-            --border: #1f1f26;
-            --font-display: -apple-system, BlinkMacSystemFont, 'Impact', 'Arial Black', sans-serif;
+            --primary-highlight: #F57C00; /* Intense Cheesy Orange */
+            --bg-body: #101012; /* Deep Smoky Charcoal */
+            --bg-navbar: rgba(16, 16, 18, 0.95);
+            --text-main: #FFFFFF;
+            --text-muted: #A0A0A0;
+            --border-ui: #2A2A2E;
+            --font-stack-header: 'Arial Black', 'Helvetica Bold', sans-serif; /* Placeholder for Impact */
+            --font-stack-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
             margin: 0;
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-stack-body);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Fluid Entrance Keyframe Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: moveUpReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes moveUpReveal {
+        /* Essential Entrance Animations */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Top Bar System Navigation */
+        .reveal-node {
+            animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        /* Clean Navbar System */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 60px;
-            background-color: rgba(10, 10, 12, 0.85);
+            padding: 30px 80px;
+            background-color: var(--bg-navbar);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-ui);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .logo { font-family: var(--font-display); font-size: 24px; letter-spacing: 1px; text-transform: uppercase; }
+
+        .brand-identifier {
+            font-family: var(--font-stack-header);
+            font-size: 24px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
         .nav-links a {
-            color: var(--muted);
+            color: var(--text-muted);
             text-decoration: none;
             margin-left: 40px;
             font-size: 13px;
@@ -56,120 +67,90 @@
             letter-spacing: 1.5px;
             transition: color 0.3s;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
-        /* Hero Concept Section */
-        .hero-container {
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        /* --- HERO MODULE --- */
+        .hero-view {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 60px;
+            padding: 100px 80px;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
             align-items: center;
             min-height: calc(100vh - 200px);
         }
 
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border: 1px solid #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
+        .hero-messaging {
+            animation-delay: 0.1s;
         }
 
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 90px;
+        .super-title {
+            font-family: var(--font-stack-header);
+            font-size: 110px;
             line-height: 0.9;
-            letter-spacing: -2px;
-            margin: 0 0 30px 0;
+            letter-spacing: -5px;
             text-transform: uppercase;
+            margin: 0 0 30px 0;
         }
 
-        .hero-description {
+        .super-title span {
+            color: var(--primary-highlight);
+        }
+
+        .meta-description {
             font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 520px;
-            margin-bottom: 45px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 550px;
+            margin-bottom: 50px;
         }
 
-        .action-row { display: flex; align-items: center; gap: 30px; }
-        
-        .primary-btn {
-            padding: 20px 45px;
-            background-color: var(--text);
-            color: var(--bg);
+        .interaction-row {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .primary-action-btn {
+            padding: 22px 50px;
+            background-color: var(--primary-highlight);
+            color: #FFFFFF;
             text-decoration: none;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
         }
-        .primary-btn:hover { background-color: #e2e2e8; transform: translateY(-2px); }
 
-        /* Media Display Showcase Box */
-        .showcase-frame {
+        .primary-action-btn:hover {
+            background-color: #E65100;
+            transform: scale(1.05);
+        }
+
+        /* Asset/Showcase Container */
+        .hero-asset-container {
             position: relative;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            height: 600px;
-            overflow: hidden;
-        }
-        .showcase-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(1) brightness(0.7) contrast(1.1);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .showcase-frame:hover img { transform: scale(1.04); }
-
-        /* Floating Absolute Promo Badge */
-        .promo-tag {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            background-color: var(--text);
-            color: var(--bg);
-            padding: 15px 25px;
-            font-weight: 900;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            animation-delay: 0.3s;
         }
 
-        /* Bento Marketing Grid Blocks */
-        .bento-section {
-            max-width: 1400px;
-            margin: 0 auto 100px auto;
-            padding: 0 60px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+        .hero-asset-shadow {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            /* Placeholder for transparent burger graphic */
         }
-        .bento-card {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
-        }
-        .bento-card h3 { font-family: var(--font-display); font-size: 24px; margin: 0 0 15px 0; text-transform: uppercase; }
-        .bento-card p { color: var(--muted); font-size: 14px; margin: 0; line-height: 1.5; }
     </style>
 </head>
-<body>
+<body class="reveal-node">
 
     <nav>
-        <div class="logo">Flip Burger //</div>
+        <div class="brand-identifier">Flip Burger //</div>
         <div class="nav-links">
             <a href="home.html" class="active">HOME</a>
             <a href="menu.html">ORDER MENU</a>
@@ -177,56 +158,19 @@
         </div>
     </nav>
 
-    <div class="hero-container reveal">
-        <div>
-            <div class="hero-badge">Gujranwala Culinary Collective</div>
-            <h1 class="hero-title">Smoky.<br>Cheesy.<br>Heavyweight.</h1>
-            <p class="hero-description">Stripping away the noise to deliver precision fast food. Pure hand-smashed premium beef patties layered under melted sharp cheddar cheese inside cloud-soft buns.</p>
-            <div class="action-row">
-                <a href="menu.html" class="primary-btn">Order Creation</a>
+    <div class="hero-view">
+        <div class="hero-messaging reveal-node">
+            <h1 class="super-title">Smashed.<br><span>Perfected.</span><br>Delivered.</h1>
+            <p class="meta-description">Experience the definitive smashed burger culture in Gujranwala. Hand-pressed premium beef patties, melted sharp cheddar, and signature sauces coordinated via real-time logistics.</p>
+            <div class="interaction-row">
+                <a href="menu.html" class="primary-action-btn">ORDER CREATION</a>
             </div>
         </div>
 
-        <div class="showcase-frame">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1000&auto=format&fit=crop" alt="Premium Burger Concept Visual Asset">
-            <div class="promo-tag">Free Fries Every Order //</div>
+        <div class="hero-asset-container reveal-node">
+            <img src="" alt="Premium Transparent Burger Graphic Placeholder" class="hero-asset-shadow">
         </div>
     </div>
 
-    <div class="bento-section reveal" style="animation-delay: 0.2s;">
-        <div class="bento-card">
-            <h3>01 / Double Smashed</h3>
-            <p>Two custom cuts of prime beef seared hard on a cast-iron flat top to lock in maximum crust development.</p>
-        </div>
-        <div class="bento-card">
-            <h3>02 / Classified Saucing</h3>
-            <p>House emulsified smoky burger spreads blended daily in limited production batches across local branches.</p>
-        </div>
-        <div class="bento-card">
-            <h3>03 / Rapid Logistics</h3>
-            <p>Direct tracking coordination mapping straight to your digital workspace or designated table station code.</p>
-        </div>
-    </div>
-<script>
-    // Intersection Observer API for fluid scroll reveal actions
-    const elementObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.15
-    });
-
-    // Apply clean starting parameters and register targets
-    document.querySelectorAll('.reveal').forEach(block => {
-        block.style.opacity = '0';
-        block.style.transform = 'translateY(30px)';
-        block.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        elementObserver.observe(block);
-    });
-</script>
 </body>
 </html>
